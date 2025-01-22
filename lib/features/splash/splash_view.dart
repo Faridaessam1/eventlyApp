@@ -17,10 +17,10 @@ class _SplashViewState extends State<SplashView> {
     Timer(
       Duration(seconds: 2),
       () {
-        Navigator.pushAndRemoveUntil(
-          context,
-          PagesRouteName.onBoarding as Route<Object?>,
-          (route) => false,
+        Navigator.pushNamedAndRemoveUntil(
+            context,
+            PagesRouteName.signIN,
+            (route) => false,
         );
       },
     );
