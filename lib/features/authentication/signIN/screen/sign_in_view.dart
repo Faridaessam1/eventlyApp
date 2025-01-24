@@ -58,11 +58,7 @@ class SignInView extends StatelessWidget {
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.04,),
 
-              CustomElevatedButton(
-                text: "Login",
-                buttonColor: AppColors.primaryColor,
-                textColor: AppColors.white,
-              ),
+              CustomElevatedButton.text(text: "Login", buttonColor:AppColors.primaryColor, textColor: AppColors.white,),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02,),
 
 
@@ -129,36 +125,8 @@ class SignInView extends StatelessWidget {
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02,),
 
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.white,
-                  padding: EdgeInsets.all(16),
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide(
-                      width: 1,
-                      color: AppColors.primaryColor,
-                    ),
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                ),
-                onPressed: () {},
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(AppAssets.googleIcn, height: MediaQuery.of(context).size.height * 0.03,),
+              CustomElevatedButton.iconText(text: "Login With Google", buttonColor: AppColors.white, textColor:AppColors.primaryColor, iconImage:"assets/icons/googleIcon.png", ),
 
-                    Text(
-                      "Log In With Google",
-                      style: theme.textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 20,
-                        fontFamily: "InterRegular",
-                        color: AppColors.primaryColor,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
 
             ],
           ).SetCenter(),

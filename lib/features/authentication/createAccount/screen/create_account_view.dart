@@ -44,7 +44,9 @@ class CreateAccountView extends StatelessWidget{
             SizedBox(height: MediaQuery.of(context).size.height * 0.06,),
 
 
-            CustomElevatedButton(text: "Create Account", buttonColor: AppColors.primaryColor, textColor:AppColors.white),
+            CustomElevatedButton.text(text: "Create Account", buttonColor:AppColors.primaryColor, textColor: AppColors.white,),
+
+
 
             Text.rich(
               TextSpan(
