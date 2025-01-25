@@ -31,7 +31,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   @override
   Widget build(BuildContext context) {
     return  TextFormField(
-
+      maxLines: widget.maxLines,
+      minLines: widget.minLines,
       validator: widget.validator,
       obscureText: widget.isPassword ?? false ? obscureText : false,
       obscuringCharacter: "*",

@@ -1,3 +1,4 @@
+import 'package:evently_app/core/routes/pages_route_name.dart';
 import 'package:evently_app/core/theme/app_colors.dart';
 import 'package:evently_app/features/layout/screens/favorite_tab.dart';
 import 'package:evently_app/features/layout/screens/home_tab.dart';
@@ -24,6 +25,8 @@ class _LayoutViewState extends State<LayoutView> {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
+        onPressed:() => Navigator.pushNamed(
+            context, PagesRouteName.createEvent),
         shape: CircleBorder(
           side: BorderSide(
             width: 5,
@@ -31,7 +34,6 @@ class _LayoutViewState extends State<LayoutView> {
           )
         ),
         backgroundColor: AppColors.primaryColor,
-        onPressed: (){},
         child: Icon(Icons.add,
           color: AppColors.white,
         ) ,

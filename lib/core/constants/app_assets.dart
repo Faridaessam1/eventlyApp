@@ -9,6 +9,8 @@ abstract class AppAssets{
   static const String mailIcn = "assets/icons/mailIcon.png";
   static const String nameIcn = "assets/icons/nameIcon.png";
   static const String passwordIcn = "assets/icons/passwordIcon.png";
+  static const String eventTitleIcon = "assets/icons/eventTitleIcon.png";
+  static const String locationIcon = "assets/icons/locationIcon.png";
   static const String sunIcn = "assets/icons/sun.svg";
   static const String eventlyCardBirthday = "assets/images/birthday.png";
   static const String eventlyCardMeeting = "assets/images/meeting.png";
