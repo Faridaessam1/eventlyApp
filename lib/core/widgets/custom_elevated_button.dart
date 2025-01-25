@@ -65,19 +65,6 @@ class CustomElevatedButton extends StatelessWidget{
 
 
 
-  CustomElevatedButton.iconOnly({
-    required Color buttonColor,
-    required Image iconImage,
-    VoidCallback? onPressed,
-  }) : this(
-    child: iconImage,
-    buttonColor: buttonColor,
-    onPressed: onPressed,
-    text: null,
-    textColor: null,
-  );
-
-
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
