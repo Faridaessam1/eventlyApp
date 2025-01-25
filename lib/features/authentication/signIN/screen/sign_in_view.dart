@@ -23,26 +23,26 @@ class SignInView extends StatelessWidget {
                 AppAssets.eventlyLogo,
                 height: MediaQuery.of(context).size.height * 0.25,
               ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.04,),
-
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.04,
+              ),
               CustomTextFormField(
                 iconPath: AppAssets.mailIcn,
                 hintText: "Email",
               ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02,),
-
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.02,
+              ),
               CustomTextFormField(
                 isPassword: true,
                 iconPath: AppAssets.passwordIcn,
                 hintText: "Password",
               ),
-
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
                   onPressed: () {
-                    Navigator.pushNamed(
-                        context, PagesRouteName.forgetPassword);
+                    Navigator.pushNamed(context, PagesRouteName.forgetPassword);
                   },
                   child: Text(
                     "Forget Password?",
@@ -56,12 +56,20 @@ class SignInView extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.04,),
-
-              CustomElevatedButton.text(text: "Login", buttonColor:AppColors.primaryColor, textColor: AppColors.white,),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02,),
-
-
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.04,
+              ),
+              CustomElevatedButton.text(
+                text: "Login",
+                buttonColor: AppColors.primaryColor,
+                textColor: AppColors.white,
+                onPressed: () {
+                  Navigator.pushNamed(context, PagesRouteName.layoutView);
+                },
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.02,
+              ),
               Text.rich(
                 TextSpan(
                   children: [
@@ -94,9 +102,9 @@ class SignInView extends StatelessWidget {
                 ),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02,),
-
-
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.02,
+              ),
               Row(
                 children: [
                   Expanded(
@@ -123,10 +131,16 @@ class SignInView extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02,),
-
-              CustomElevatedButton.iconText(text: "Login With Google", buttonColor: AppColors.white, textColor:AppColors.primaryColor, iconImage:"assets/icons/googleIcon.png", ),
-
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.02,
+              ),
+              CustomElevatedButton.iconText(
+                text: "Login With Google",
+                buttonColor: AppColors.white,
+                textColor: AppColors.primaryColor,
+                iconImage: AppAssets.googleIcn,
+                onPressed: () {},
+              ),
 
             ],
           ).SetCenter(),

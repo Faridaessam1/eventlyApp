@@ -7,7 +7,7 @@ class CustomElevatedButton extends StatelessWidget{
   String? text;
   Color? buttonColor;
   Color? textColor;
-  VoidCallback? onPressed;
+  Function()? onPressed;
   Widget? child;
   double? fontSize;
   double borderRadius;
@@ -41,22 +41,28 @@ class CustomElevatedButton extends StatelessWidget{
     required Color textColor,
     VoidCallback? onPressed,
     required String iconImage,
-})
-  : this(
+  }) : this(
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-       Image.asset(iconImage, height: MediaQuery.of(navigatorKey.currentContext!).size.height * 0.03,),
-
-        Text(text),
+        Image.asset(iconImage,height: MediaQuery.of(navigatorKey.currentContext!).size.height * 0.03,),
+        Text(
+          text,
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 20,
+            fontFamily: "InterRegular",
+            color: textColor,
+          ),
+        ),
       ],
     ),
-    textColor: textColor,
     buttonColor: buttonColor,
-    text: text,
+    textColor: textColor,
     onPressed: onPressed,
-
+    text: null,
   );
+
 
 
   CustomElevatedButton.iconOnly({
@@ -74,7 +80,7 @@ class CustomElevatedButton extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return  ElevatedButton(
+    return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: buttonColor,
         padding: EdgeInsets.all(16),
@@ -86,17 +92,42 @@ class CustomElevatedButton extends StatelessWidget{
           borderRadius: BorderRadius.circular(borderRadius),
         ),
       ),
-      onPressed: (){},
-      child:Text(text!,
-        style: Theme.of(context).textTheme.titleLarge?.copyWith(
-          fontWeight: FontWeight.w500 ,
+      onPressed: onPressed,
+      child: child != null && text != null
+          ? Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          child!,
+          SizedBox(width:MediaQuery.of(context).size.width * 0.10),
+          Text(
+            text!,
+            style: Theme
+                .of(context)
+                .textTheme
+                .titleLarge
+                ?.copyWith(
+              fontWeight: FontWeight.w500,
+              fontSize: fontSize,
+              fontFamily: "InterRegular",
+              color: textColor,
+            ),
+          ),
+        ],
+      )
+          : child != null
+          ? child!
+          : Text(text!,
+        style: Theme
+            .of(context)
+            .textTheme
+            .titleLarge
+            ?.copyWith(
+          fontWeight: FontWeight.w500,
           fontSize: fontSize,
           fontFamily: "InterRegular",
           color: textColor,
-
         ),
       ),
-
     );
   }
-}
+  }
