@@ -25,8 +25,6 @@ class _LayoutViewState extends State<LayoutView> {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed:() => Navigator.pushNamed(
-            context, PagesRouteName.createEvent),
         shape: CircleBorder(
           side: BorderSide(
             width: 5,
@@ -34,6 +32,9 @@ class _LayoutViewState extends State<LayoutView> {
           )
         ),
         backgroundColor: AppColors.primaryColor,
+        onPressed: (){
+          Navigator.pushNamed(context, PagesRouteName.createEvent);
+        },
         child: Icon(Icons.add,
           color: AppColors.white,
         ) ,

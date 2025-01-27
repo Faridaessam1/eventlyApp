@@ -63,9 +63,10 @@ class SignInView extends StatelessWidget {
                 text: "Login",
                 buttonColor: AppColors.primaryColor,
                 textColor: AppColors.white,
-                onPressed: () {
-                  Navigator.pushNamed(context, PagesRouteName.layoutView);
-                },
+                onPressed:() {
+                  Navigator.pushNamed(
+                      context, PagesRouteName.layoutView);
+                } ,
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.02,
@@ -138,10 +139,8 @@ class SignInView extends StatelessWidget {
                 text: "Login With Google",
                 buttonColor: AppColors.white,
                 textColor: AppColors.primaryColor,
-                iconImage: AppAssets.googleIcn,
-                onPressed: () {},
+                iconImage: "assets/icons/googleIcon.png",
               ),
-
             ],
           ).SetCenter(),
         ),
