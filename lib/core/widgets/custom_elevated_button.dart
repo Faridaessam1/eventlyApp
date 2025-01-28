@@ -12,7 +12,7 @@ class CustomElevatedButton extends StatelessWidget{
   double? fontSize;
   double borderRadius;
 
-  CustomElevatedButton({
+  CustomElevatedButton({super.key, 
     this.text,
    this.buttonColor,
      this.textColor,
@@ -22,7 +22,7 @@ class CustomElevatedButton extends StatelessWidget{
     this.borderRadius = 16,
   });
 
-  CustomElevatedButton.text({
+  CustomElevatedButton.text({key,
     required String text,
     required Color buttonColor,
     required Color textColor,
@@ -35,7 +35,7 @@ class CustomElevatedButton extends StatelessWidget{
     onPressed: onPressed,
   );
 
-  CustomElevatedButton.iconText({
+  CustomElevatedButton.iconText({key,
     required String text,
     required Color buttonColor,
     required Color textColor,
@@ -62,6 +62,17 @@ class CustomElevatedButton extends StatelessWidget{
     onPressed: onPressed,
     text: null,
   );
+  CustomElevatedButton.iconOnly({
+    required Color buttonColor,
+    required Image iconImage,
+    VoidCallback? onPressed,
+  }) : this(
+    child: iconImage,
+    buttonColor: buttonColor,
+    onPressed: onPressed,
+    text: null,
+    textColor: null,
+  );
 
 
 
@@ -70,7 +81,7 @@ class CustomElevatedButton extends StatelessWidget{
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor:  buttonColor ?? AppColors.primaryColor,
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         shape: RoundedRectangleBorder(
           side: BorderSide(
               width: 1,

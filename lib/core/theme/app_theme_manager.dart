@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 abstract class AppThemeManager {
   static ThemeData lightData = ThemeData(
     scaffoldBackgroundColor: AppColors.white,
-    textTheme: TextTheme(
+    textTheme: const TextTheme(
       titleMedium: TextStyle(
         fontFamily: "InterItalic"
       ),

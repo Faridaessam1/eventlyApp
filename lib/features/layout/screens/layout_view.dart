@@ -7,6 +7,8 @@ import 'package:evently_app/features/layout/screens/profile_tab.dart';
 import 'package:flutter/material.dart';
 
 class LayoutView extends StatefulWidget {
+  const LayoutView({super.key});
+
   @override
   State<LayoutView> createState() => _LayoutViewState();
 }
@@ -14,11 +16,11 @@ class LayoutView extends StatefulWidget {
 class _LayoutViewState extends State<LayoutView> {
   int selectedIndex = 0 ;
   List<Widget> tabs = [
-    HomeTab(),
-    MapsTab(),
+     HomeTab(),
+     MapsTab(),
     SizedBox(),
-    FavoriteTab(),
-    ProfileTab(),
+     FavoriteTab(),
+     ProfileTab(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -77,6 +79,7 @@ class _LayoutViewState extends State<LayoutView> {
       body: tabs[selectedIndex],
     );
     }
+
   void onBottomNavBarItemTapped(int index){
     if(index == 2) return;
     selectedIndex = index;

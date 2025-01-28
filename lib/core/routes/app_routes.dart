@@ -16,42 +16,42 @@ abstract class AppRoutes{
     switch(settings.name){
       case PagesRouteName.initial:
         return MaterialPageRoute(
-          builder: (context) => SplashView(),
+          builder: (context) => const SplashView(),
           settings: settings,
         );
       case PagesRouteName.onBoarding:
         return MaterialPageRoute(
-          builder: (context) => OnBoardingView(),
+          builder: (context) => const OnBoardingView(),
           settings: settings,
         );
       case PagesRouteName.signIN:
         return MaterialPageRoute(
-          builder: (context) => SignInView(),
+          builder: (context) => const SignInView(),
           settings: settings,
         );
       case PagesRouteName.createAccount:
         return MaterialPageRoute(
-          builder: (context) => CreateAccountView(),
+          builder: (context) => const CreateAccountView(),
           settings: settings,
         );
       case PagesRouteName.forgetPassword:
         return MaterialPageRoute(
-          builder: (context) => ForgetPasswordView(),
+          builder: (context) => const ForgetPasswordView(),
           settings: settings,
         );
       case PagesRouteName.layoutView:
         return MaterialPageRoute(
-          builder: (context) => LayoutView(),
+          builder: (context) => const LayoutView(),
           settings: settings,
         );
       case PagesRouteName.createEvent:
         return MaterialPageRoute(
-          builder: (context) => CreateEvent(),
+          builder: (context) => const CreateEvent(),
           settings: settings,
         );
       default:
         return MaterialPageRoute(
-          builder: (context) => SplashView(),
+          builder: (context) => const SplashView(),
           settings: settings,
         );
     }
