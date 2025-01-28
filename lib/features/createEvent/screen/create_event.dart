@@ -2,14 +2,81 @@ import 'package:evently_app/core/constants/app_assets.dart';
 import 'package:evently_app/core/widgets/custom_elevated_button.dart';
 import 'package:evently_app/core/widgets/custom_tab_bar_item.dart';
 import 'package:evently_app/core/widgets/custom_text_form_field.dart';
+import 'package:evently_app/models/tab_bar_data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/theme/app_colors.dart';
 
-class CreateEvent extends StatelessWidget {
+class CreateEvent extends StatefulWidget {
+  const CreateEvent({super.key});
+
+  @override
+  State<CreateEvent> createState() => _CreateEventState();
+}
+
+class _CreateEventState extends State<CreateEvent> {
+  int SelectedIndex = 0;
+
+  List<String> tabImages = [
+    AppAssets.eventlyCardBookClub,
+    AppAssets.eventlyCardSports,
+    AppAssets.eventlyCardBirthday,
+    AppAssets.eventlyCardMeeting,
+    AppAssets.eventlyCardGaming,
+    AppAssets.eventlyCardWorkShop,
+    AppAssets.eventlyCardExhibition,
+    AppAssets.eventlyCardHoliday,
+    AppAssets.eventlyCardEating,
+  ];
+
+
   @override
   Widget build(BuildContext context) {
+    List<TabBarData> eventNameList = [
+      TabBarData(
+        icon: Icons.menu_book_outlined,
+        tabName: "Book Club",
+
+      ),
+      TabBarData(
+        icon: Icons.sports,
+        tabName: "Sports",
+
+      ),
+      TabBarData(
+        icon: Icons.settings_system_daydream,
+        tabName: "BirthDay",
+      ),
+      TabBarData(
+        icon: Icons.meeting_room_outlined,
+        tabName: "Meeting",
+      ),
+      TabBarData(
+        icon: Icons.games_outlined,
+        tabName: "Gaming",
+      ),
+      TabBarData(
+        icon: Icons.workspaces_outline,
+        tabName: "WorkShop",
+      ),
+      TabBarData(
+        icon: Icons.sports,
+        tabName: "Exhibition",
+      ),
+      TabBarData(
+        icon: Icons.holiday_village,
+        tabName:  "Holiday",
+
+      ),
+      TabBarData(
+        icon: Icons.fastfood_outlined,
+        tabName: "Eating",
+
+      ),
+
+    ];
+
     return Scaffold(
       backgroundColor: AppColors.pastelCyan,
       appBar: AppBar(
@@ -28,9 +95,7 @@ class CreateEvent extends StatelessWidget {
           padding: const EdgeInsets.symmetric(
             horizontal: 15,
           ),
-          child: DefaultTabController(
-            length: 4,
-            child: SingleChildScrollView(
+          child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -40,51 +105,46 @@ class CreateEvent extends StatelessWidget {
                     height: MediaQuery.of(context).size.height * 0.27,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
-                      image: DecorationImage(
+                      image:  DecorationImage(
                         fit: BoxFit.fill,
-                        image: AssetImage(
-                          AppAssets.eventlyCardBookClub,
-                        ),
+                        image:
+                          AssetImage(tabImages[SelectedIndex]),
+
                       ),
                     ),
                   ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.1,
                     height: MediaQuery.of(context).size.height * 0.10,
-                    child: TabBar(
-                      isScrollable: true,
-                      tabAlignment: TabAlignment.start,
-                      dividerColor: Colors.transparent,
-                      indicatorColor: Colors.transparent,
-                      tabs: [
-                        CustomTabBarItem(
-                          icon: CupertinoIcons.book,
-                          text: "Book Club",
-                          isSelected: true,
-                          isHomeTab: false,
-                        ),
-                        CustomTabBarItem(
-                          icon: CupertinoIcons.book,
-                          text: "Book Club",
-                          isSelected: false,
-                          isHomeTab: false,
-                        ),
-                        CustomTabBarItem(
-                          icon: CupertinoIcons.book,
-                          text: "Book Club",
-                          isSelected: false,
-                          isHomeTab: false,
-                        ),
-                        CustomTabBarItem(
-                          icon: CupertinoIcons.book,
-                          text: "Book Club",
-                          isSelected: false,
-                          isHomeTab: false,
-                        )
-                      ],
+                    child: DefaultTabController(
+                      length: eventNameList.length,
+                      child: TabBar(
+                        onTap: (index){
+                          SelectedIndex = index;
+                          setState(() {});
+                        },
+                          isScrollable: true,
+                          tabAlignment: TabAlignment.start,
+                          dividerColor: Colors.transparent,
+                          indicatorColor: Colors.transparent,
+                          labelPadding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.01),
+                        tabs: eventNameList.asMap().entries.map((entry) {
+                          int index = entry.key;
+                          var event = entry.value;
+
+                          return CustomTabBarItem(
+                            tabBarData: TabBarData(
+                              tabName: event.tabName,
+                              icon: event.icon,
+                              isSelected: SelectedIndex == index,
+                              isHomeTab:false,
+                            ),
+                          );
+                        }).toList(),
+                      ),
                     ),
                   ),
-                  Text(
+                  const Text(
                     "Title",
                     style: TextStyle(
                       fontSize: 16,
@@ -96,7 +156,7 @@ class CreateEvent extends StatelessWidget {
                       iconPath: AppAssets.eventTitleIcon,
                       hintText: "Event Title"),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                  Text(
+                  const Text(
                     "Description",
                     style: TextStyle(
                       fontSize: 16,
@@ -106,20 +166,20 @@ class CreateEvent extends StatelessWidget {
                   ),
                   CustomTextFormField(
                     hintText: "Description",
-                    iconPath: AppAssets.eventTitleIcon,
+                    hasIcon: false,
                     minLines: 3,
                     maxLines: 6,
                   ),
                   Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.calendar_month_outlined,
                         color: Colors.black,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 8,
                       ),
-                      Text(
+                      const Text(
                         "Event Date",
                         style: TextStyle(
                           fontFamily: "InterRegular",
@@ -128,7 +188,7 @@ class CreateEvent extends StatelessWidget {
                           color: Colors.black,
                         ),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       TextButton(
                         onPressed: () {},
                         child: Text(
@@ -144,14 +204,14 @@ class CreateEvent extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.access_time_outlined,
                         color: Colors.black,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 8,
                       ),
-                      Text(
+                      const Text(
                         "Event Time",
                         style: TextStyle(
                           fontFamily: "InterRegular",
@@ -160,7 +220,7 @@ class CreateEvent extends StatelessWidget {
                           color: Colors.black,
                         ),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       TextButton(
                         onPressed: () {},
                         child: Text(
@@ -174,7 +234,7 @@ class CreateEvent extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Text(
+                  const Text(
                     "Location",
                     style: TextStyle(
                       fontSize: 16,
@@ -184,7 +244,7 @@ class CreateEvent extends StatelessWidget {
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
                   Container(
-                    padding: EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: AppColors.primaryColor,
@@ -211,7 +271,7 @@ class CreateEvent extends StatelessWidget {
                           fontSize: 16,
                         ),
                         ),
-                        Spacer(),
+                        const Spacer(),
                         Icon(Icons.arrow_forward_ios, color: AppColors.primaryColor,)
                       ],
                     ),
@@ -234,7 +294,6 @@ class CreateEvent extends StatelessWidget {
               ),
             ),
           ),
-        ),
     );
   }
 }

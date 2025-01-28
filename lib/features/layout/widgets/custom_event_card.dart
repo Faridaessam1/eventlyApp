@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import '../../../core/constants/app_assets.dart';
 
 class CustomEventCard extends StatelessWidget{
+  const CustomEventCard({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -13,7 +15,7 @@ class CustomEventCard extends StatelessWidget{
         height: MediaQuery.of(context).size.height * 0.25,
         width:  MediaQuery.of(context).size.width * 0.9,
         decoration: BoxDecoration(
-          image: DecorationImage(
+          image: const DecorationImage(
             fit: BoxFit.cover,
             image: AssetImage(AppAssets.eventlyCardBirthday),
           ),
@@ -25,7 +27,7 @@ class CustomEventCard extends StatelessWidget{
             Align(
               alignment: Alignment.topRight,
               child: Container(
-                padding: EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                     color: AppColors.pastelCyan,
                     borderRadius: BorderRadius.circular(10)
@@ -42,10 +44,10 @@ class CustomEventCard extends StatelessWidget{
                 ),
               ),
             ),
-            Spacer(),
+            const Spacer(),
 
             Container(
-              padding: EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
                 color: AppColors.pastelCyan,
                 borderRadius: BorderRadius.circular(10),
@@ -53,15 +55,17 @@ class CustomEventCard extends StatelessWidget{
               ),
               child: Row(
                 children: [
-                  Text("This is a Birthday Party ",
-                    style: TextStyle(
-                      color: AppColors.primaryColor,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 18,
-                      fontFamily: "InterRegular",
+                  Expanded(
+                    child: Text("This is a Birthday Party ",
+                      style: TextStyle(
+                        color: AppColors.primaryColor,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 18,
+                        fontFamily: "InterRegular",
+                      ),
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Icon(Icons.favorite, color: AppColors.primaryColor,)
                 ],
               ),
