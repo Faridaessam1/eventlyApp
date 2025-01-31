@@ -4,9 +4,10 @@ import 'package:evently_app/core/theme/app_colors.dart';
 import 'package:evently_app/core/widgets/custom_elevated_button.dart';
 import 'package:evently_app/features/layout/widgets/custom_event_card.dart';
 import 'package:evently_app/core/widgets/custom_tab_bar_item.dart';
-import 'package:evently_app/models/tab_bar_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+
+import '../../../models/event_category.dart';
 
 class HomeTab extends StatefulWidget {
   @override
@@ -18,53 +19,47 @@ class _HomeTabState extends State<HomeTab> {
 
   @override
   Widget build(BuildContext context) {
-    List<TabBarData> eventNameList = [
-      TabBarData(
-        icon: Icons.home,
-        tabName: "All",
-
-      ),
-      TabBarData(
-        icon: Icons.sports,
-        tabName: "Sports",
-
-      ),
-      TabBarData(
-        icon: Icons.settings_system_daydream,
-        tabName: "BirthDay",
-
-      ),
-      TabBarData(
-        icon: Icons.meeting_room_outlined,
-        tabName: "Meeting",
-
-      ),
-      TabBarData(
-        icon: Icons.games_outlined,
-        tabName: "Gaming",
-
-      ),
-      TabBarData(
-        icon: Icons.workspaces_outline,
-        tabName: "WorkShop",
-
-      ),
-      TabBarData(
-        icon: Icons.sports,
-        tabName: "Exhibition",
-
-      ),
-      TabBarData(
-        icon: Icons.holiday_village,
-        tabName:  "Holiday",
-
-      ),
-      TabBarData(
-        icon: Icons.fastfood_outlined,
-        tabName: "Eating",
-
-      ),
-
+    List<EventCategory> eventCategory = [
+      EventCategory(
+          categoryName: "All",
+          eventCategoryIcon: Icons.all_out_outlined,
+          eventCategoryImg: AppAssets.eventlyCardSports),
+      EventCategory(
+          categoryName: "Sports",
+          eventCategoryIcon: Icons.sports,
+          eventCategoryImg: AppAssets.eventlyCardSports),
+      EventCategory(
+          categoryName: "BirthDay",
+          eventCategoryIcon: Icons.settings_system_daydream,
+          eventCategoryImg: AppAssets.eventlyCardBirthday),
+      EventCategory(
+          categoryName: "Book Club",
+          eventCategoryIcon: Icons.menu_book_outlined,
+          eventCategoryImg: AppAssets.eventlyCardBookClub),
+      EventCategory(
+          categoryName: "Meeting",
+          eventCategoryIcon: Icons.meeting_room_outlined,
+          eventCategoryImg: AppAssets.eventlyCardMeeting),
+      EventCategory(
+          categoryName: "Gaming",
+          eventCategoryIcon: Icons.games_outlined,
+          eventCategoryImg: AppAssets.eventlyCardGaming),
+      EventCategory(
+          categoryName: "WorkShop",
+          eventCategoryIcon: Icons.workspaces_outline,
+          eventCategoryImg: AppAssets.eventlyCardWorkShop),
+      EventCategory(
+          categoryName: "Exhibition",
+          eventCategoryIcon: Icons.sports,
+          eventCategoryImg: AppAssets.eventlyCardExhibition),
+      EventCategory(
+          categoryName: "Holiday",
+          eventCategoryIcon: Icons.holiday_village,
+          eventCategoryImg: AppAssets.eventlyCardHoliday),
+      EventCategory(
+          categoryName: "Eating",
+          eventCategoryIcon: Icons.fastfood_outlined,
+          eventCategoryImg: AppAssets.eventlyCardEating),
     ];
 
     return Column(
@@ -142,7 +137,7 @@ class _HomeTabState extends State<HomeTab> {
                     ),
                     Expanded(
                       child: DefaultTabController(
-                        length: eventNameList.length,
+                        length: eventCategory.length,
                         child: TabBar(
                           onTap: (index){
                             SelectedIndex = index;
@@ -153,20 +148,17 @@ class _HomeTabState extends State<HomeTab> {
                           tabAlignment: TabAlignment.start,
                           dividerColor: Colors.transparent,
                           indicatorColor: Colors.transparent,
-                          tabs: eventNameList.asMap().entries.map((entry) {
-                            int index = entry.key;
-                            var event = entry.value;
-
+                          tabs: eventCategory.map((element) {
                             return CustomTabBarItem(
-                              tabBarData: TabBarData(
-                                tabName: event.tabName,
-                                icon: event.icon,
-                                isSelected: SelectedIndex == index,
-                                isHomeTab: event.isHomeTab,
+                              eventCategory: EventCategory(
+                                  categoryName: element.categoryName,
+                                  eventCategoryIcon: element.eventCategoryIcon,
+                                  eventCategoryImg: element.eventCategoryImg,
+                                  isSelected:  SelectedIndex == eventCategory.indexOf(element),
+                                  isHomeTab:true,
                               ),
                             );
-                          }).toList(),
-                        ),
+                          }).toList(),                      ),
                       ),
                     ),
                   ],

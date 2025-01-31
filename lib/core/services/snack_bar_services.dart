@@ -2,9 +2,12 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 
 import '../../main.dart';
+import '../theme/app_colors.dart';
 
 class SnackBarServices {
   static void showSuccessMessage(String msg) {
+
+
     BotToast.showCustomNotification(
       duration: const Duration(seconds: 3), // Auto-dismiss after 3 seconds
       align: Alignment.topCenter,
@@ -16,15 +19,9 @@ class SnackBarServices {
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16), // space between msg and container
             margin: const EdgeInsets.only(top: 40), // message tb2a b3eda 3an el tarf
             decoration: BoxDecoration(
-              color: Colors.white, // Background color for notification
-              borderRadius:  BorderRadius.circular(8),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black26,
-                  blurRadius: 4,
-                  offset: Offset(0, 2),
-                ),
-              ],
+              color:Colors.green, // Background color for notification
+              borderRadius:  BorderRadius.circular(10),
+
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -33,9 +30,9 @@ class SnackBarServices {
                 Container(
                   height: 30,
                   width: 6,
-                  decoration: const BoxDecoration(
-                    color: Colors.purple,
-                    borderRadius: BorderRadius.only(
+                  decoration: BoxDecoration(
+                    color:Colors.green,
+                    borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(12),
                       bottomLeft: Radius.circular(12),
                     ),
@@ -47,9 +44,9 @@ class SnackBarServices {
                 Expanded(
                   child: Text(
                     msg,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 14,
-                      color: Colors.black,
+                      color: AppColors.white,
                       fontWeight: FontWeight.w500,
                     ),
                     maxLines: 2,

@@ -3,7 +3,7 @@ import 'package:evently_app/core/extensions/center_ext.dart';
 import 'package:evently_app/core/extensions/validation.dart';
 import 'package:evently_app/core/routes/pages_route_name.dart';
 import 'package:evently_app/core/theme/app_colors.dart';
-import 'package:evently_app/core/utils/firebase_functions.dart';
+import 'package:evently_app/core/utils/firebase_auth.dart';
 import 'package:evently_app/core/widgets/custom_elevated_button.dart';
 import 'package:evently_app/core/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
@@ -180,6 +180,9 @@ class _SignInViewState extends State<SignInView> {
                     height: MediaQuery.of(context).size.height * 0.02,
                   ),
                   CustomElevatedButton.iconText(
+                    onPressed: (){
+                      FirebaseFunctions.signInWithGoogle();
+                    },
                     text: "Login With Google",
                     buttonColor: AppColors.white,
                     textColor: AppColors.primaryColor,
