@@ -1,7 +1,7 @@
 import 'package:evently_app/core/constants/app_assets.dart';
 import 'package:evently_app/core/routes/pages_route_name.dart';
 import 'package:evently_app/core/theme/app_colors.dart';
-import 'package:evently_app/core/utils/firebase_functions.dart';
+import 'package:evently_app/core/utils/firebase_auth.dart';
 import 'package:evently_app/core/widgets/custom_elevated_button.dart';
 import 'package:evently_app/core/widgets/custom_text_form_field.dart';
 import 'package:evently_app/main.dart';

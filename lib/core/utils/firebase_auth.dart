@@ -1,6 +1,7 @@
 import 'package:evently_app/core/services/snack_bar_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseFunctions {
 
@@ -67,5 +68,33 @@ class FirebaseFunctions {
   }
 
 
+  static Future<UserCredential?> signInWithGoogle() async {
+    try {
+      // await GoogleSignIn().signIn(); de btft7le window google 3shan ykhtar el account bta3o
+      // lw ekhtar htrg3 value ttkhzn fl variable lw mkhtrsh btrg3 null
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      if (googleUser == null) return null; // User canceled sign-in
+
+      // lw luser ekhtar account bstkhdm googleUser.authentication;
+      // 3shan at2ked en byanat el user sah
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+
+      // ay user 3ndo hagten awl ma by3ml sign in b google
+      //accesstoken wda b2dar a access be hagat f account l shakhs w bykon haga mo2kata
+      //idtoken w da bykon fe byanat asasya 3shan a3rf hawyt lshakhs el dkhal
+      // 3shan at2ked mn hawyt lshakhs el dkhal byhtag letnen w letnnakhdthom wna b3ml sign in
+      final OAuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+      SnackBarServices.showSuccessMessage("Logged In Successfully");
+      // 4️⃣ Sign in to Firebase and Return User
+      return await FirebaseAuth.instance.signInWithCredential(credential);
+
+    } catch (e) {
+      SnackBarServices.showErrorMessage(e.toString());
+      print(e);
+    }
+  }
 
 }
