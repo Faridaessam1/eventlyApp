@@ -21,8 +21,9 @@ class FireBaseFirestore{
   }
 
   // function t create new event
-  static Future<void> createNewEvent(EventDataModel eventData) async {
-    //awl haga a3mlha eni ageb el collection ref
+  static Future<bool> createNewEvent(EventDataModel eventData) async {
+    try{
+      //awl haga a3mlha eni ageb el collection ref
       var collectionRef = getCollectionRef();
 
       var docRef = collectionRef.doc(); //create new doc in collection
@@ -31,10 +32,16 @@ class FireBaseFirestore{
       //b2olo yhotele el value bt3t el id fl object mn l id el hwa auto generated fe el firestore
 
 
-      return await docRef.set(eventData);
+       docRef.set(eventData);
       //b2olo y create el data bl object el m3aia mn eventDataModel
       // yroh yb3to l function to firestore w thawelo l map w tb3to
-    // mesh 7ata await hna 3shan ana msh mestnya data trg3 lw kan fe haga rg3a kan lazm await
+      // mesh 7ata await hna 3shan ana msh mestnya data trg3 lw kan fe haga rg3a kan lazm await
+
+      return Future.value(true);
+    } catch(error){
+      return Future.value(false);
+    }
+
 
 
 

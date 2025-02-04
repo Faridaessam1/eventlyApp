@@ -260,24 +260,29 @@ class _CreateEventState extends State<CreateEvent> {
                         buttonColor: AppColors.primaryColor,
                         textColor: AppColors.white,
                         onPressed: () {
-                          var data = EventDataModel(
-                              eventTitle: _titleController.text,
-                              eventDescription: _descriptionControler.text,
-                              eventImage: eventCategory[SelectedIndex].eventCategoryImg,
-                              eventCategory: eventCategory[SelectedIndex].categoryName,
-                              eventDate: selectedDate ?? DateTime.now(),
-                          );
                           try{
                             if(formKey.currentState!.validate()){
                               if(selectedDate != null) {
+                                var data = EventDataModel(
+                                  eventTitle: _titleController.text,
+                                  eventDescription: _descriptionControler.text,
+                                  eventImage: eventCategory[SelectedIndex].eventCategoryImg,
+                                  eventCategory: eventCategory[SelectedIndex].categoryName,
+                                  eventDate: selectedDate ?? DateTime.now(),
+                                );
                                 EasyLoading.show();
                                FireBaseFirestore.createNewEvent(data).then((value){
-                                });
-                              }
-                              SnackBarServices.showSuccessMessage("Event Created Successfully");
-                              EasyLoading.dismiss();
-                              Navigator.pushNamed(context, PagesRouteName.layoutView);
+                                 EasyLoading.dismiss();
+                                 if(value == true){
+                                   SnackBarServices.showSuccessMessage("Event Created Successfully");
+                                   Navigator.pushNamed(context, PagesRouteName.layoutView);
 
+                                 }
+                                }
+                                );
+                              }else {
+                                SnackBarServices.showWarningMessage("Select An Event Date");
+                              }
                             }
                           } catch(e){
                             SnackBarServices.showErrorMessage("An Error Occurred! Try Again");
