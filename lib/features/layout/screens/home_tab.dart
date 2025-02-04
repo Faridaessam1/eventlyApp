@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:evently_app/core/constants/app_assets.dart';
 import 'package:evently_app/core/extensions/size_ext.dart';
 import 'package:evently_app/core/theme/app_colors.dart';
@@ -7,7 +8,9 @@ import 'package:evently_app/core/widgets/custom_tab_bar_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../core/utils/firebase_firestore.dart';
 import '../../../models/event_category.dart';
+import '../../../models/event_data_model.dart';
 
 class HomeTab extends StatefulWidget {
   @override
@@ -20,10 +23,10 @@ class _HomeTabState extends State<HomeTab> {
   @override
   Widget build(BuildContext context) {
     List<EventCategory> eventCategory = [
-      EventCategory(
-          categoryName: "All",
-          eventCategoryIcon: Icons.all_out_outlined,
-          eventCategoryImg: AppAssets.eventlyCardSports),
+      // EventCategory(
+      //     categoryName: "All",
+      //     eventCategoryIcon: Icons.all_out_outlined,
+      //     eventCategoryImg: AppAssets.eventlyCardSports),
       EventCategory(
           categoryName: "Sports",
           eventCategoryIcon: Icons.sports,
@@ -94,7 +97,7 @@ class _HomeTabState extends State<HomeTab> {
                               height: 5,
                             ),
                             Text(
-                              "John Safwat",
+                              "Farida Essam",
                               style: TextStyle(
                                   fontFamily: "InterRegular",
                                   fontSize: 24,
@@ -164,13 +167,131 @@ class _HomeTabState extends State<HomeTab> {
                   ],
                 ),
               )),
-          Expanded(
-            child: ListView.separated(
-              padding: EdgeInsets.zero,
-                itemBuilder: (context, index) => const CustomEventCard(),
-                separatorBuilder:(context, index) => SizedBox(height: MediaQuery.of(context).size.height * 0.01,) ,
-                itemCount:5,
-            ),
+
+          //One time read
+          // FutureBuilder(
+          //     future: FireBaseFirestoreServices.getDataFromFirestore(eventCategory[SelectedIndex].categoryName),
+          //     builder: (context, snapshot) {
+          //       if(snapshot.hasError){
+          //         return Column(
+          //           mainAxisAlignment: MainAxisAlignment.center,
+          //           crossAxisAlignment: CrossAxisAlignment.stretch,
+          //           children: [
+          //             Text("Something Went Wrong !",
+          //               style: TextStyle(
+          //                 color: AppColors.secondryColor,
+          //                 fontSize: 15,
+          //                 fontWeight: FontWeight.w300,
+          //               ),
+          //             ),
+          //             SizedBox(),
+          //             IconButton(
+          //                 onPressed: (){},
+          //                 icon: Icon(Icons.refresh_outlined,
+          //                   color: AppColors.secondryColor,
+          //                 ),
+          //             )
+          //           ],
+          //         );
+          //       }
+          //
+          //       if(snapshot.connectionState == ConnectionState.waiting){
+          //         return  Center(child: CircularProgressIndicator(
+          //           color: AppColors.primaryColor,
+          //         ));
+          //       }
+          //
+          //       List<EventDataModel> eventDataList = snapshot.data ?? [];
+          //
+          //       return eventDataList.isNotEmpty ? Expanded(
+          //         child: ListView.separated(
+          //           padding: EdgeInsets.zero,
+          //           itemBuilder: (context, index) =>  CustomEventCard(
+          //             eventData: eventDataList[index],
+          //           ),
+          //           separatorBuilder:(context, index) => SizedBox(height: MediaQuery.of(context).size.height * 0.01,) ,
+          //           itemCount:eventDataList.length,
+          //         ),
+          //       )
+          //       : Center(
+          //         child: Text("No Event Created Yet ! " ,
+          //           style: TextStyle(
+          //             color: AppColors.secondryColor,
+          //             fontSize: 20,
+          //             fontWeight: FontWeight.w400,
+          //           ),
+          //         ),
+          //       )
+          //       ;
+          //
+          //     },
+          // ),
+
+          //real time read
+
+
+          StreamBuilder <QuerySnapshot<EventDataModel>>(
+            stream:FireBaseFirestoreServices.getStreamData(eventCategory[SelectedIndex].categoryName),
+            builder: (context, snapshot) {
+              if(snapshot.hasError){
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text("Something Went Wrong !",
+                      style: TextStyle(
+                        color: AppColors.secondryColor,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                    SizedBox(),
+                    IconButton(
+                      onPressed: (){},
+                      icon: Icon(Icons.refresh_outlined,
+                        color: AppColors.secondryColor,
+                      ),
+                    )
+                  ],
+                );
+              }
+
+              if(snapshot.connectionState == ConnectionState.waiting){
+                return  Center(child: CircularProgressIndicator(
+                  color: AppColors.primaryColor,
+                ));
+              }
+
+              List<EventDataModel> eventDataList = snapshot.data!.docs
+                .map(
+                  (element) {
+                    return element.data();
+                  },
+                )
+                .toList();
+
+            return eventDataList.isNotEmpty ? Expanded(
+                child: ListView.separated(
+                  padding: EdgeInsets.zero,
+                  itemBuilder: (context, index) =>  CustomEventCard(
+                    eventData: eventDataList[index],
+                  ),
+                  separatorBuilder:(context, index) => SizedBox(height: MediaQuery.of(context).size.height * 0.01,) ,
+                  itemCount:eventDataList.length,
+                ),
+              )
+                  : Center(
+                child: Text("No Event Created Yet ! " ,
+                  style: TextStyle(
+                    color: AppColors.secondryColor,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              )
+              ;
+
+            },
           ),
         ],
       );

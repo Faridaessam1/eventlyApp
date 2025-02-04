@@ -4,6 +4,7 @@ abstract class AppAssets{
   static const String onBoarding2 = "assets/images/onBoarding2.png";
   static const String onBoarding3 = "assets/images/onBoarding3.png";
   static const String onBoarding4 = "assets/images/onBoarding4.png";
+  static const String onBoardingLogo = "assets/images/onBoardingLogo.png";
   static const String forgetPassword = "assets/images/forgetPassword.png";
   static const String profileImage = "assets/images/profileImage.png";
   static const String googleIcn = "assets/icons/googleIcon.png";
@@ -18,6 +19,10 @@ abstract class AppAssets{
   static const String locationLayoutIcn = "assets/icons/locationLayoutIcon.png";
   static const String favoriteIcn = "assets/icons/favoriteIcon.png";
   static const String profileIcn = "assets/icons/profileIcon.png";
+  static const String ARLanguageIcn = "assets/icons/ARLanguageIcon.png";
+  static const String ENLanguageIcn = "assets/icons/ENLanguageIcon.png";
+  static const String darkMoodIcn = "assets/icons/darkMoodIcon.png";
+  static const String lightMoodIcn  = "assets/icons/lightMoodIcon.png";
   static const String eventlyCardBirthday = "assets/images/birthday.png";
   static const String eventlyCardMeeting = "assets/images/meeting.png";
   static const String eventlyCardExhibition = "assets/images/exhibition.png";
