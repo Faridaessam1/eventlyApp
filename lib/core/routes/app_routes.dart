@@ -4,6 +4,7 @@ import 'package:evently_app/features/authentication/forgetPassword/screen/forget
 import 'package:evently_app/features/authentication/signIN/screen/sign_in_view.dart';
 import 'package:evently_app/features/createEvent/screen/create_event.dart';
 import 'package:evently_app/features/layout/screens/layout_view.dart';
+import 'package:evently_app/features/onBoarding/on_boarding_details.dart';
 import 'package:evently_app/features/splash/splash_view.dart';
 import 'package:flutter/material.dart';
 
@@ -22,6 +23,11 @@ abstract class AppRoutes{
       case PagesRouteName.onBoarding:
         return MaterialPageRoute(
           builder: (context) => const OnBoardingView(),
+          settings: settings,
+        );
+      case PagesRouteName.onBoardingDetails:
+        return MaterialPageRoute(
+          builder: (context) => OnBoardingDetails(),
           settings: settings,
         );
       case PagesRouteName.signIN:

@@ -1,10 +1,17 @@
 import 'package:evently_app/core/theme/app_colors.dart';
+import 'package:evently_app/core/utils/firebase_firestore.dart';
+import 'package:evently_app/models/event_data_model.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../../core/constants/app_assets.dart';
 
 class CustomEventCard extends StatelessWidget{
-  const CustomEventCard({super.key});
+  EventDataModel eventData;
+   CustomEventCard({
+    super.key,
+  required this.eventData,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +22,9 @@ class CustomEventCard extends StatelessWidget{
         height: MediaQuery.of(context).size.height * 0.25,
         width:  MediaQuery.of(context).size.width * 0.9,
         decoration: BoxDecoration(
-          image: const DecorationImage(
+          image: DecorationImage(
             fit: BoxFit.cover,
-            image: AssetImage(AppAssets.eventlyCardBirthday),
+            image: AssetImage(eventData.eventImage),
           ),
           borderRadius: BorderRadius.circular(16),
         ),
@@ -25,14 +32,14 @@ class CustomEventCard extends StatelessWidget{
         child: Column(
           children: [
             Align(
-              alignment: Alignment.topRight,
+              alignment: Alignment.topLeft,
               child: Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                     color: AppColors.pastelCyan,
                     borderRadius: BorderRadius.circular(10)
                 ),
-                child: Text("21 \n Nov",
+                child: Text("${eventData.eventDate.day} \n ${DateFormat('MMM').format(eventData.eventDate)}",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: AppColors.primaryColor,
@@ -56,7 +63,7 @@ class CustomEventCard extends StatelessWidget{
               child: Row(
                 children: [
                   Expanded(
-                    child: Text("This is a Birthday Party ",
+                    child: Text(eventData.eventTitle,
                       style: TextStyle(
                         color: AppColors.primaryColor,
                         fontWeight: FontWeight.w700,
@@ -66,7 +73,19 @@ class CustomEventCard extends StatelessWidget{
                     ),
                   ),
                   const Spacer(),
-                  Icon(Icons.favorite, color: AppColors.primaryColor,)
+                  GestureDetector(
+                    onTap: (){
+                      eventData.isFavorite = !eventData.isFavorite;
+                      FireBaseFirestoreServices.updateEvent(eventData);
+                    },
+                    child: eventData.isFavorite ? Icon(
+                      Icons.favorite,
+                      color: AppColors.primaryColor,
+                    ) : Icon(
+                      Icons.favorite_border_outlined,
+                      color: AppColors.primaryColor,
+                    ),
+                  ),
                 ],
               ),
             )

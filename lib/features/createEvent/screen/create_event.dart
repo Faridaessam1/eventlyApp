@@ -271,7 +271,7 @@ class _CreateEventState extends State<CreateEvent> {
                                   eventDate: selectedDate ?? DateTime.now(),
                                 );
                                 EasyLoading.show();
-                               FireBaseFirestore.createNewEvent(data).then((value){
+                               FireBaseFirestoreServices.createNewEvent(data).then((value){
                                  EasyLoading.dismiss();
                                  if(value == true){
                                    SnackBarServices.showSuccessMessage("Event Created Successfully");
