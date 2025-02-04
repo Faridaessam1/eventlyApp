@@ -6,6 +6,7 @@ import 'package:evently_app/core/theme/app_colors.dart';
 import 'package:evently_app/core/utils/firebase_auth.dart';
 import 'package:evently_app/core/widgets/custom_elevated_button.dart';
 import 'package:evently_app/core/widgets/custom_text_form_field.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
@@ -180,8 +181,13 @@ class _SignInViewState extends State<SignInView> {
                     height: MediaQuery.of(context).size.height * 0.02,
                   ),
                   CustomElevatedButton.iconText(
-                    onPressed: (){
-                      FirebaseFunctions.signInWithGoogle();
+                    onPressed: () async {
+                      UserCredential? userCredential = await FirebaseFunctions.signInWithGoogle();
+                      if (userCredential != null) {
+                        Navigator.pushNamed(context, PagesRouteName.layoutView);
+                      } else{
+                        Navigator.pushNamed(context, PagesRouteName.signIN);
+                      }
                     },
                     text: "Login With Google",
                     buttonColor: AppColors.white,
