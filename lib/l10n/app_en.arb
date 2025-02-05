@@ -1,0 +1,40 @@
+{
+"home" : "Home",
+  "location" : "Location",
+  "favorite" : "Favorite",
+  "profile" : "Profile",
+  "welcomeback" : "Welcome Back",
+  "all" : "All",
+  "sports" : "Sports",
+  "birthday" : "BirthDay",
+  "bookclub" : "Book Club",
+  "meeting" : "Meeting",
+  "gaming" : "Gaming",
+  "workshop" : "WorkShop",
+  "exhibition" : "Exhibition",
+  "holiday" : "Holiday",
+  "eating" : "Eating",
+  "search" : "Search",
+
+  "onBoarding1_title": "Discover Events That Inspire You",
+  "onBoarding1_details": "Immerse yourself in a world of events tailored to your unique interests. Whether you love live music, art workshops, professional networking, or simply discovering new experiences, we have something for everyone. Our curated recommendations will help you explore, connect, and make the most of every opportunity around you.",
+
+  "onBoarding2_title": "Effortless Event Planning",
+  "onBoarding2_details": "Take the hassle out of organizing events with our comprehensive planning tools. From sending invitations and managing RSVPs to setting reminders and coordinating details, we’ve got everything covered. Plan with ease and focus on what truly matters – creating an unforgettable experience for you and your guests.",
+
+  "onBoarding3_title": "Connect with Friends & Share Moments",
+  "onBoarding3_details": "Make every event unforgettable by sharing it with others. Our platform lets you invite friends, keep them updated, and celebrate moments together. Capture and share the excitement with your network, allowing you to relive the highlights and cherish the memories.",
+
+
+  "onBoardingView_title" :"Personalize Your Experience",
+  "onBoardingView_details" : "Choose your preferred theme and language to get started with a comfortable, tailored experience that suits your style.",
+
+  "language" : "Language",
+  "theme" : "Theme",
+  "letsstart" : "Let's Start",
+
+  "noeventcreated" : "No Event Created Yet !",
+
+  "somethingWentWrong" : "Something Went Wrong !"
+
+}

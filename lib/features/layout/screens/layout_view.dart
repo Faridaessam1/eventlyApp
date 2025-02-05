@@ -5,6 +5,8 @@ import 'package:evently_app/features/layout/screens/home_tab.dart';
 import 'package:evently_app/features/layout/screens/maps_tab.dart';
 import 'package:evently_app/features/layout/screens/profile_tab.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class LayoutView extends StatefulWidget {
   const LayoutView({super.key});
@@ -48,17 +50,17 @@ class _LayoutViewState extends State<LayoutView> {
         type: BottomNavigationBarType.fixed,
         currentIndex: selectedIndex,
         onTap: onBottomNavBarItemTapped,
-        items: const [
+        items:  [
 
           BottomNavigationBarItem(
               icon: Icon(Icons.home_outlined),
               activeIcon:Icon(Icons.home) ,
-              label: "Home",
+              label: AppLocalizations.of(context)!.home,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.location_on_outlined),
             activeIcon:Icon(Icons.location_on) ,
-            label: "Maps",
+            label: AppLocalizations.of(context)!.location,
           ),
           BottomNavigationBarItem(
             icon: SizedBox(),
@@ -67,12 +69,12 @@ class _LayoutViewState extends State<LayoutView> {
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite_border_outlined),
             activeIcon:Icon(Icons.favorite) ,
-            label: "Favorite",
+            label: AppLocalizations.of(context)!.favorite,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_3_outlined),
             activeIcon:Icon(Icons.person) ,
-            label: "Profile",
+            label: AppLocalizations.of(context)!.profile,
           ),
         ],
       ),

@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:evently_app/models/event_data_model.dart';
 
 abstract class FireBaseFirestoreServices {
-// function 3shan tt3aml m3 firestore
+// function 3shan tt3aml m3 firestore w trg3 esm el collection
   static CollectionReference<EventDataModel> getCollectionRef() {
     //singelton class bakhod mno object w a3del 3aleh
     // b set esm el collection (table) ,
@@ -42,6 +42,7 @@ abstract class FireBaseFirestoreServices {
     }
   }
 
+  //functions trg3 el data mn database (read data)
   static Future <List<EventDataModel>> getDataFromFirestore(String categoryName) async {
     var collectionRef = getCollectionRef().where(
       "eventCategory" , isEqualTo: categoryName,
@@ -66,26 +67,29 @@ abstract class FireBaseFirestoreServices {
 // ana hna 3mlt el map gwa el function l2en k future l data btrg3 mra whda bs
   // kol ma bndah el function btgeb data t7welha w trg3ha
   }
-
   static Stream<QuerySnapshot<EventDataModel>> getStreamData(String categoryName){
-    var collectionRef = getCollectionRef().where(
-      "eventCategory", isEqualTo : categoryName,
-    );
+    Query<EventDataModel> collectionRef = getCollectionRef();
 
-
+    if (categoryName != "All") {
+      collectionRef = collectionRef.where(
+        "eventCategory",
+        isEqualTo: categoryName,
+      );
+    }
+   
 
     return collectionRef.snapshots();
     //bnrg3 el collection as stream
     //once 7sal change aw update yrg3hole f wa2tha msh shart a3mle refresh
 
-    //fl dtream bn3ml el map hnak fl stream builder
+    //fl stream bn3ml el map hnak fl stream builder
     //l2en hwa bygeb l data 3la tol kol ma y7sal change
     // msh hyro7 yndah el function 3shan ygeb data
     //lazm el data tthawel mngher ma andh function
 
   }
 
-
+//function trg3 stream data llfavorite page
   static Stream<QuerySnapshot<EventDataModel>> getStreamFavoriteData(){
     var collectionRef = getCollectionRef().where(
       "isFavorite", isEqualTo : true,
