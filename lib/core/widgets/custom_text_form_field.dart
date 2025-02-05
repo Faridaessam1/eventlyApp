@@ -55,14 +55,14 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           padding: const EdgeInsets.all(9.0),
           child: ImageIcon(
             AssetImage(widget.iconPath!),
-            color: widget.iconColor ?? AppColors.secondryColor,
+            color: widget.iconColor ?? AppColors.secondryColorLight,
           ),
         ) : null,
           suffixIcon: widget.isPassword
               ? IconButton(
             icon: Icon(
               obscureText ? Icons.visibility_off : Icons.visibility,
-              color: AppColors.secondryColor,
+              color: AppColors.secondryColorLight,
             ),
             onPressed: () {
               setState(() {
@@ -73,18 +73,18 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
               : null,
           hintText: widget.hintText,
           hintStyle: Theme.of(context).textTheme.titleMedium?.copyWith(
-            color: widget.hintTextColor ?? AppColors.secondryColor,
+            color: widget.hintTextColor ?? AppColors.secondryColorLight,
           ),
           enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(20),
               borderSide: BorderSide(
-                color:  widget.borderColor ?? AppColors.secondryColor,
+                color:  widget.borderColor ?? AppColors.secondryColorLight,
               )
           ),
         focusedBorder:OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
             borderSide: BorderSide(
-              color:  widget.borderColor ?? AppColors.secondryColor,
+              color:  widget.borderColor ?? AppColors.secondryColorLight,
             )
         ),
 

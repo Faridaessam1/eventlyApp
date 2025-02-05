@@ -35,6 +35,15 @@
 
   "noeventcreated" : "No Event Created Yet !",
 
-  "somethingWentWrong" : "Something Went Wrong !"
+  "somethingWentWrong" : "Something Went Wrong !",
+
+  "english" : "English",
+  "arabic" : "Arabic",
+
+  "selectLanguage" : "Select Language",
+  "selectTheme" : "Select Theme",
+
+  "dark" : "Dark",
+  "light" : "Light"
 
 }

@@ -1,4 +1,3 @@
-import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import '../../../core/constants/app_assets.dart';
 import '../../../core/routes/pages_route_name.dart';
@@ -42,7 +41,7 @@ class _CustomOnBoardingWidgetState extends State<CustomOnBoardingWidget> {
                           style: TextStyle(
                             fontWeight: FontWeight.w700,
                             fontSize: 20,
-                            color: AppColors.primaryColor,
+                            color: AppColors.primaryColorLight,
                           )
                       ),
                       SizedBox(height: 20,),
@@ -68,7 +67,7 @@ class _CustomOnBoardingWidgetState extends State<CustomOnBoardingWidget> {
                                curve: Curves.easeInOut,
                                );
                                },
-                                icon: Icon(Icons.arrow_back_ios , color: AppColors.primaryColor),
+                                icon: Icon(Icons.arrow_back_ios , color: AppColors.primaryColorLight),
                               ),
                             ),
                          Spacer(),
@@ -90,7 +89,7 @@ class _CustomOnBoardingWidgetState extends State<CustomOnBoardingWidget> {
                                 );
                               }
                               },
-                             icon: Icon(Icons.arrow_forward_ios , color: AppColors.primaryColor,),
+                             icon: Icon(Icons.arrow_forward_ios , color: AppColors.primaryColorLight,),
                              ),
                             ),
 

@@ -117,7 +117,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
             
                 CustomElevatedButton.text(
                   text: "Create Account",
-                  buttonColor:AppColors.primaryColor,
+                  buttonColor:AppColors.primaryColorLight,
                   textColor: AppColors.white,
                   onPressed: () {
                     if(formKey.currentState!.validate()){
@@ -142,7 +142,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                       TextSpan(
                         text: "Already Have An Account ? ",
                         style:Theme.of(context).textTheme.titleMedium?.copyWith(
-                          color: AppColors.secondryColor,
+                          color: AppColors.secondryColorLight,
                         ),
                       ),
                       WidgetSpan(
@@ -156,10 +156,10 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                           child: Text(
                             "LogIn",
                             style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                              color: AppColors.primaryColor,
+                              color: AppColors.primaryColorLight,
                               fontWeight: FontWeight.w700,
                               decoration: TextDecoration.underline,
-                              decorationColor: AppColors.primaryColor,
+                              decorationColor: AppColors.primaryColorLight,
                             ),
                           ),
                         ),

@@ -16,20 +16,20 @@ EventCategory eventCategory;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
-          color: eventCategory.isSelected! ? (eventCategory.isHomeTab! ? AppColors.white : AppColors.primaryColor) : Colors.transparent,
+          color: eventCategory.isSelected! ? (eventCategory.isHomeTab! ? AppColors.white : AppColors.primaryColorLight) : Colors.transparent,
           borderRadius: BorderRadius.circular(46),
           border: Border.all(
-            color: eventCategory.isHomeTab! ?  AppColors.white : AppColors.primaryColor,
+            color: eventCategory.isHomeTab! ?  AppColors.white : AppColors.primaryColorLight,
             width: 1,
           )
       ),
       child: Row(
         children: [
-          Icon(eventCategory.eventCategoryIcon, color: eventCategory.isSelected! ? (eventCategory.isHomeTab! ? AppColors.primaryColor : AppColors.white) :(eventCategory.isHomeTab! ? AppColors.white : AppColors.primaryColor),),
+          Icon(eventCategory.eventCategoryIcon, color: eventCategory.isSelected! ? (eventCategory.isHomeTab! ? AppColors.primaryColorLight : AppColors.white) :(eventCategory.isHomeTab! ? AppColors.white : AppColors.primaryColorLight),),
           SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
           Text(eventCategory.categoryName ,
             style: TextStyle(
-              color: eventCategory.isSelected! ?( eventCategory.isHomeTab! ? AppColors.primaryColor : AppColors.white ) : (eventCategory.isHomeTab! ? AppColors.white : AppColors.primaryColor) ,
+              color: eventCategory.isSelected! ?( eventCategory.isHomeTab! ? AppColors.primaryColorLight : AppColors.white ) : (eventCategory.isHomeTab! ? AppColors.white : AppColors.primaryColorLight) ,
               fontWeight: FontWeight.w500,
               fontSize:16 ,
               fontFamily: "InterRegular",

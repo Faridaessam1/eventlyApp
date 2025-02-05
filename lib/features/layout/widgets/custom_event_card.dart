@@ -42,7 +42,7 @@ class CustomEventCard extends StatelessWidget{
                 child: Text("${eventData.eventDate.day} \n ${DateFormat('MMM').format(eventData.eventDate)}",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: AppColors.primaryColor,
+                    color: AppColors.primaryColorLight,
                     fontFamily: "InterRegular",
                     fontSize: 16,
                     fontWeight: FontWeight.w700,
@@ -65,7 +65,7 @@ class CustomEventCard extends StatelessWidget{
                   Expanded(
                     child: Text(eventData.eventTitle,
                       style: TextStyle(
-                        color: AppColors.primaryColor,
+                        color: AppColors.primaryColorLight,
                         fontWeight: FontWeight.w700,
                         fontSize: 18,
                         fontFamily: "InterRegular",
@@ -80,10 +80,10 @@ class CustomEventCard extends StatelessWidget{
                     },
                     child: eventData.isFavorite ? Icon(
                       Icons.favorite,
-                      color: AppColors.primaryColor,
+                      color: AppColors.primaryColorLight,
                     ) : Icon(
                       Icons.favorite_border_outlined,
-                      color: AppColors.primaryColor,
+                      color: AppColors.primaryColorLight,
                     ),
                   ),
                 ],

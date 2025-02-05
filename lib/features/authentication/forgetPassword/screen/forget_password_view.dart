@@ -24,7 +24,7 @@ class ForgetPasswordView extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: CustomElevatedButton.text(
                 text: "Reset Password",
-                buttonColor: AppColors.primaryColor,
+                buttonColor: AppColors.primaryColorLight,
                 textColor: AppColors.white,
                 onPressed: () {},
               ))

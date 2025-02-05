@@ -82,10 +82,10 @@ class _SignInViewState extends State<SignInView> {
                       child: Text(
                         "Forget Password?",
                         style: theme.textTheme.titleMedium?.copyWith(
-                          color: AppColors.primaryColor,
+                          color: AppColors.primaryColorLight,
                           fontWeight: FontWeight.w700,
                           decoration: TextDecoration.underline,
-                          decorationColor: AppColors.primaryColor,
+                          decorationColor: AppColors.primaryColorLight,
                           decorationThickness: 2,
                         ),
                       ),
@@ -96,7 +96,7 @@ class _SignInViewState extends State<SignInView> {
                   ),
                   CustomElevatedButton.text(
                     text: "Login",
-                    buttonColor: AppColors.primaryColor,
+                    buttonColor: AppColors.primaryColorLight,
                     textColor: AppColors.white,
                     onPressed:() {
                       if(formKey.currentState!.validate()){
@@ -122,7 +122,7 @@ class _SignInViewState extends State<SignInView> {
                         TextSpan(
                           text: "Don't Have Account? ",
                           style: theme.textTheme.titleMedium?.copyWith(
-                            color: AppColors.secondryColor,
+                            color: AppColors.secondryColorLight,
                           ),
                         ),
                         WidgetSpan(
@@ -136,10 +136,10 @@ class _SignInViewState extends State<SignInView> {
                             child: Text(
                               "Create Account",
                               style: theme.textTheme.titleMedium?.copyWith(
-                                color: AppColors.primaryColor,
+                                color: AppColors.primaryColorLight,
                                 fontWeight: FontWeight.w700,
                                 decoration: TextDecoration.underline,
-                                decorationColor: AppColors.primaryColor,
+                                decorationColor: AppColors.primaryColorLight,
                               ),
                             ),
                           ),
@@ -155,7 +155,7 @@ class _SignInViewState extends State<SignInView> {
                     children: [
                       Expanded(
                         child: Divider(
-                          color: AppColors.primaryColor,
+                          color: AppColors.primaryColorLight,
                           thickness: 2,
                           indent: 20,
                           endIndent: 20,
@@ -164,12 +164,12 @@ class _SignInViewState extends State<SignInView> {
                       Text(
                         "Or",
                         style: theme.textTheme.titleMedium?.copyWith(
-                          color: AppColors.primaryColor,
+                          color: AppColors.primaryColorLight,
                         ),
                       ),
                       Expanded(
                         child: Divider(
-                          color: AppColors.primaryColor,
+                          color: AppColors.primaryColorLight,
                           thickness: 2,
                           indent: 20,
                           endIndent: 20,
@@ -191,7 +191,7 @@ class _SignInViewState extends State<SignInView> {
                     },
                     text: "Login With Google",
                     buttonColor: AppColors.white,
-                    textColor: AppColors.primaryColor,
+                    textColor: AppColors.primaryColorLight,
                     iconImage: "assets/icons/googleIcon.png",
                   ),
                 ],

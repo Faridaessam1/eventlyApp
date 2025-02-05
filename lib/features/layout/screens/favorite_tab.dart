@@ -26,11 +26,11 @@ class _FavoriteTabState extends State<FavoriteTab> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10 , vertical: 5),
                 child: CustomTextFormField(
-                  borderColor: AppColors.primaryColor,
+                  borderColor: AppColors.primaryColorLight,
                     iconPath: AppAssets.searchIcn,
-                    iconColor: AppColors.primaryColor,
+                    iconColor: AppColors.primaryColorLight,
                     hintText:AppLocalizations.of(context)!.search ,
-                    hintTextColor: AppColors.primaryColor,
+                    hintTextColor: AppColors.primaryColorLight,
                 ),
               ),
               StreamBuilder <QuerySnapshot<EventDataModel>>(
@@ -43,7 +43,7 @@ class _FavoriteTabState extends State<FavoriteTab> {
                       children: [
                         Text("Something Went Wrong !",
                           style: TextStyle(
-                            color: AppColors.secondryColor,
+                            color: AppColors.secondryColorLight,
                             fontSize: 15,
                             fontWeight: FontWeight.w300,
                           ),
@@ -52,7 +52,7 @@ class _FavoriteTabState extends State<FavoriteTab> {
                         IconButton(
                           onPressed: (){},
                           icon: Icon(Icons.refresh_outlined,
-                            color: AppColors.secondryColor,
+                            color: AppColors.secondryColorLight,
                           ),
                         )
                       ],
@@ -61,7 +61,7 @@ class _FavoriteTabState extends State<FavoriteTab> {
 
                   if(snapshot.connectionState == ConnectionState.waiting){
                     return  Center(child: CircularProgressIndicator(
-                      color: AppColors.primaryColor,
+                      color: AppColors.primaryColorLight,
                     ));
                   }
 
@@ -86,7 +86,7 @@ class _FavoriteTabState extends State<FavoriteTab> {
                       : Center(
                     child: Text("No Favorite Event Yet ! " ,
                       style: TextStyle(
-                        color: AppColors.secondryColor,
+                        color: AppColors.secondryColorLight,
                         fontSize: 20,
                         fontWeight: FontWeight.w400,
                       ),
