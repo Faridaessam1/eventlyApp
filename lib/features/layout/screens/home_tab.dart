@@ -7,7 +7,7 @@ import 'package:evently_app/features/layout/widgets/custom_event_card.dart';
 import 'package:evently_app/core/widgets/custom_tab_bar_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../core/utils/firebase_firestore.dart';
 import '../../../models/event_category.dart';
 import '../../../models/event_data_model.dart';
@@ -23,44 +23,44 @@ class _HomeTabState extends State<HomeTab> {
   @override
   Widget build(BuildContext context) {
     List<EventCategory> eventCategory = [
-      // EventCategory(
-      //     categoryName: "All",
-      //     eventCategoryIcon: Icons.all_out_outlined,
-      //     eventCategoryImg: AppAssets.eventlyCardSports),
       EventCategory(
-          categoryName: "Sports",
+          categoryName: AppLocalizations.of(context)!.all,
+          eventCategoryIcon: Icons.all_out_outlined,
+          eventCategoryImg: AppAssets.eventlyCardSports),
+      EventCategory(
+          categoryName: AppLocalizations.of(context)!.sports,
           eventCategoryIcon: Icons.sports,
           eventCategoryImg: AppAssets.eventlyCardSports),
       EventCategory(
-          categoryName: "BirthDay",
+          categoryName:AppLocalizations.of(context)!.birthday ,
           eventCategoryIcon: Icons.settings_system_daydream,
           eventCategoryImg: AppAssets.eventlyCardBirthday),
       EventCategory(
-          categoryName: "Book Club",
+          categoryName: AppLocalizations.of(context)!.bookclub,
           eventCategoryIcon: Icons.menu_book_outlined,
           eventCategoryImg: AppAssets.eventlyCardBookClub),
       EventCategory(
-          categoryName: "Meeting",
+          categoryName: AppLocalizations.of(context)!.meeting,
           eventCategoryIcon: Icons.meeting_room_outlined,
           eventCategoryImg: AppAssets.eventlyCardMeeting),
       EventCategory(
-          categoryName: "Gaming",
+          categoryName:AppLocalizations.of(context)!.gaming,
           eventCategoryIcon: Icons.games_outlined,
           eventCategoryImg: AppAssets.eventlyCardGaming),
       EventCategory(
-          categoryName: "WorkShop",
+          categoryName: AppLocalizations.of(context)!.workshop,
           eventCategoryIcon: Icons.workspaces_outline,
           eventCategoryImg: AppAssets.eventlyCardWorkShop),
       EventCategory(
-          categoryName: "Exhibition",
+          categoryName: AppLocalizations.of(context)!.exhibition,
           eventCategoryIcon: Icons.sports,
           eventCategoryImg: AppAssets.eventlyCardExhibition),
       EventCategory(
-          categoryName: "Holiday",
+          categoryName: AppLocalizations.of(context)!.holiday,
           eventCategoryIcon: Icons.holiday_village,
           eventCategoryImg: AppAssets.eventlyCardHoliday),
       EventCategory(
-          categoryName: "Eating",
+          categoryName:AppLocalizations.of(context)!.eating,
           eventCategoryIcon: Icons.fastfood_outlined,
           eventCategoryImg: AppAssets.eventlyCardEating),
     ];
@@ -86,7 +86,7 @@ class _HomeTabState extends State<HomeTab> {
                         Column(
                           children: [
                             Text(
-                              "Welcome Back",
+                              AppLocalizations.of(context)!.welcomeback,
                               style: TextStyle(
                                   fontFamily: "InterRegular",
                                   fontSize: 16,
@@ -238,7 +238,7 @@ class _HomeTabState extends State<HomeTab> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Text("Something Went Wrong !",
+                    Text(AppLocalizations.of(context)!.somethingWentWrong,
                       style: TextStyle(
                         color: AppColors.secondryColor,
                         fontSize: 15,
@@ -281,7 +281,7 @@ class _HomeTabState extends State<HomeTab> {
                 ),
               )
                   : Center(
-                child: Text("No Event Created Yet ! " ,
+                child: Text(AppLocalizations.of(context)!.noeventcreated ,
                   style: TextStyle(
                     color: AppColors.secondryColor,
                     fontSize: 20,

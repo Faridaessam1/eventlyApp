@@ -3,7 +3,7 @@ import 'package:evently_app/core/constants/app_assets.dart';
 import 'package:evently_app/core/theme/app_colors.dart';
 import 'package:evently_app/core/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../core/utils/firebase_firestore.dart';
 import '../../../models/event_data_model.dart';
 import '../widgets/custom_event_card.dart';
@@ -29,7 +29,7 @@ class _FavoriteTabState extends State<FavoriteTab> {
                   borderColor: AppColors.primaryColor,
                     iconPath: AppAssets.searchIcn,
                     iconColor: AppColors.primaryColor,
-                    hintText: "Search For Event",
+                    hintText:AppLocalizations.of(context)!.search ,
                     hintTextColor: AppColors.primaryColor,
                 ),
               ),

@@ -1,7 +1,7 @@
 import 'package:evently_app/core/theme/app_colors.dart';
 import 'package:evently_app/core/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../core/constants/app_assets.dart';
 import '../../core/routes/pages_route_name.dart';
 
@@ -24,7 +24,7 @@ class OnBoardingView extends StatelessWidget{
                   Image.asset(AppAssets.onBoarding1 , height: MediaQuery.of(context).size.height * 0.5),
                   SizedBox(height: 15,),
             
-                  Text("Personalize Your Experience",
+                  Text( AppLocalizations.of(context)!.onBoardingView_title,
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 20,
@@ -34,8 +34,8 @@ class OnBoardingView extends StatelessWidget{
                   SizedBox(height: 20,),
             
                   Text(
-                          "Choose your preferred theme and language to get started with a comfortable, tailored experience that suits your style.",
-                          style: TextStyle(
+                    AppLocalizations.of(context)!.onBoardingView_details,
+                    style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 16,
                             color: Colors.black,
@@ -44,7 +44,7 @@ class OnBoardingView extends StatelessWidget{
                   SizedBox(height: 40,),
                   Row(
                     children: [
-                      Text("Language",
+                      Text( AppLocalizations.of(context)!.language,
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 20,
@@ -79,7 +79,7 @@ class OnBoardingView extends StatelessWidget{
                   SizedBox(height: 20,),
                   Row(
                     children: [
-                      Text("Theme",
+                      Text( AppLocalizations.of(context)!.theme,
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 20,
@@ -121,7 +121,7 @@ class OnBoardingView extends StatelessWidget{
                           (route) => false,
                     );
                   },
-                    text: "Let's Start",
+                    text: AppLocalizations.of(context)!.letsstart,
                     buttonColor: AppColors.primaryColor,
                     textColor: AppColors.white,
                 ),

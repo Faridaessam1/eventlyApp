@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../models/on_boarding_data.dart';
 import 'widgets/custom_on_boarding_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OnBoardingDetails extends StatefulWidget{
   @override
