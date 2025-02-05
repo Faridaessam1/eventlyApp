@@ -77,10 +77,10 @@ class _CreateEventState extends State<CreateEvent> {
         title: Text(
           "Create Event",
           style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              fontWeight: FontWeight.w500, color: AppColors.primaryColor),
+              fontWeight: FontWeight.w500, color: AppColors.primaryColorLight),
         ),
         iconTheme: IconThemeData(
-          color: AppColors.primaryColor,
+          color: AppColors.primaryColorLight,
         ),
       ),
       body: Padding(
@@ -197,7 +197,7 @@ class _CreateEventState extends State<CreateEvent> {
                             fontFamily: "InterRegular",
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
-                            color: AppColors.primaryColor),
+                            color: AppColors.primaryColorLight),
                       ),
                     ),
                   ],
@@ -217,7 +217,7 @@ class _CreateEventState extends State<CreateEvent> {
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: AppColors.primaryColor,
+                      color: AppColors.primaryColorLight,
                     ),
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -225,7 +225,7 @@ class _CreateEventState extends State<CreateEvent> {
                     children: [
                       ElevatedButton.icon(
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.primaryColor),
+                            backgroundColor: AppColors.primaryColorLight),
                         onPressed: () {},
                         label: Icon(Icons.my_location_outlined,
                             color: AppColors.white),
@@ -236,7 +236,7 @@ class _CreateEventState extends State<CreateEvent> {
                       Text(
                         "Choose Event Location",
                         style: TextStyle(
-                          color: AppColors.primaryColor,
+                          color: AppColors.primaryColorLight,
                           fontWeight: FontWeight.w500,
                           fontSize: 16,
                         ),
@@ -244,7 +244,7 @@ class _CreateEventState extends State<CreateEvent> {
                       const Spacer(),
                       Icon(
                         Icons.arrow_forward_ios,
-                        color: AppColors.primaryColor,
+                        color: AppColors.primaryColorLight,
                       )
                     ],
                   ),
@@ -257,7 +257,7 @@ class _CreateEventState extends State<CreateEvent> {
                     Expanded(
                       child: CustomElevatedButton.text(
                         text: "Add Event",
-                        buttonColor: AppColors.primaryColor,
+                        buttonColor: AppColors.primaryColorLight,
                         textColor: AppColors.white,
                         onPressed: () {
                           try{

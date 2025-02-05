@@ -2,14 +2,20 @@ import 'package:evently_app/core/theme/app_colors.dart';
 import 'package:evently_app/core/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 import '../../core/constants/app_assets.dart';
 import '../../core/routes/pages_route_name.dart';
+import '../../provider/app_language_provider.dart';
+import '../../provider/theme_mode_provider.dart';
 
 class OnBoardingView extends StatelessWidget{
   const OnBoardingView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var languageProvider = Provider.of<AppLanguageProvider>(context);
+    var themeProvider = Provider.of<AppThemeProvider>(context);
+
     return SafeArea(
       child: Scaffold(
         body: Padding(
@@ -28,7 +34,7 @@ class OnBoardingView extends StatelessWidget{
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 20,
-                      color: AppColors.primaryColor,
+                      color: AppColors.primaryColorLight,
                     )
                     ),
                   SizedBox(height: 20,),
@@ -48,7 +54,7 @@ class OnBoardingView extends StatelessWidget{
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 20,
-                            color: AppColors.primaryColor,
+                            color: AppColors.primaryColorLight,
                           ),
                       ),
                       Spacer(),
@@ -60,7 +66,7 @@ class OnBoardingView extends StatelessWidget{
                           borderRadius: BorderRadius.circular(50),
                           color: AppColors.white,
                           border: Border.all(
-                            color: AppColors.primaryColor,
+                            color: AppColors.primaryColorLight,
                             width: 2,
                           ),
                         ),
@@ -68,10 +74,21 @@ class OnBoardingView extends StatelessWidget{
             
                         child: Row(
                           children: [
-                            Image.asset(AppAssets.ENLanguageIcn),
+                            GestureDetector(
+                              onTap:(){
+                                if(languageProvider.appLanguage == "en") return;
+                                languageProvider.changeAppLanguage("en");
+                              },
+                              child: Image.asset(AppAssets.ENLanguageIcn),
+                            ),
                             Spacer(),
-                            Image.asset(AppAssets.ARLanguageIcn),
-                          ],
+                        GestureDetector(
+                          onTap: (){
+                            if(languageProvider.appLanguage == "ar") return;
+                            languageProvider.changeAppLanguage("ar");
+                          },
+                            child: Image.asset(AppAssets.ARLanguageIcn)),
+                      ],
                         ),
                       )
                     ],
@@ -83,7 +100,7 @@ class OnBoardingView extends StatelessWidget{
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 20,
-                            color: AppColors.primaryColor,
+                            color: AppColors.primaryColorLight,
                           )
                       ),
                       Spacer(),
@@ -95,7 +112,7 @@ class OnBoardingView extends StatelessWidget{
                           borderRadius: BorderRadius.circular(50),
                           color: AppColors.white,
                           border: Border.all(
-                            color: AppColors.primaryColor,
+                            color: AppColors.primaryColorLight,
                             width: 2,
                           ),
                         ),
@@ -103,10 +120,23 @@ class OnBoardingView extends StatelessWidget{
             
                         child: Row(
                           children: [
-                            Image.asset(AppAssets.lightMoodIcn , color: AppColors.primaryColor,),
-                            Spacer(),
-                            Image.asset(AppAssets.darkMoodIcn),
-                    ],
+                        GestureDetector(
+                          onTap:(){
+                            if(themeProvider.appTheme == ThemeMode.light) return;
+                            themeProvider.changeAppTheme(ThemeMode.light);
+                          },
+                            child: Image.asset(
+                          AppAssets.lightMoodIcn,
+                          color: AppColors.primaryColorLight,
+                        )),
+                        Spacer(),
+                        GestureDetector(
+                          onTap: (){
+                            if(themeProvider.appTheme == ThemeMode.dark) return;
+                            themeProvider.changeAppTheme(ThemeMode.dark);
+                          },
+                            child: Image.asset(AppAssets.darkMoodIcn)),
+                      ],
                   ),
                 )
                 ],
@@ -122,7 +152,7 @@ class OnBoardingView extends StatelessWidget{
                     );
                   },
                     text: AppLocalizations.of(context)!.letsstart,
-                    buttonColor: AppColors.primaryColor,
+                    buttonColor: AppColors.primaryColorLight,
                     textColor: AppColors.white,
                 ),
             

@@ -8,9 +8,12 @@ import 'package:evently_app/core/widgets/custom_tab_bar_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 import '../../../core/utils/firebase_firestore.dart';
 import '../../../models/event_category.dart';
 import '../../../models/event_data_model.dart';
+import '../../../provider/app_language_provider.dart';
+import '../../../provider/theme_mode_provider.dart';
 
 class HomeTab extends StatefulWidget {
   @override
@@ -22,6 +25,8 @@ class _HomeTabState extends State<HomeTab> {
 
   @override
   Widget build(BuildContext context) {
+    var languageProvider = Provider.of<AppLanguageProvider>(context);
+    var themeProvider = Provider.of<AppThemeProvider>(context);
     List<EventCategory> eventCategory = [
       EventCategory(
           categoryName: AppLocalizations.of(context)!.all,
@@ -71,7 +76,7 @@ class _HomeTabState extends State<HomeTab> {
               padding: const EdgeInsets.all(16),
               height: MediaQuery.of(context).size.height * 0.27,
               decoration: BoxDecoration(
-                  color: AppColors.primaryColor,
+                  color: AppColors.primaryColorLight,
                   borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(50),
                     bottomRight: Radius.circular(50),
@@ -107,18 +112,34 @@ class _HomeTabState extends State<HomeTab> {
                           ],
                         ),
                         const Spacer(),
-                        SvgPicture.asset(
-                          AppAssets.sunIcn,
-                          height: 0.04.height,
+                        GestureDetector(
+                          onTap: (){
+                            if(themeProvider.appTheme == ThemeMode.light){
+                              themeProvider.changeAppTheme(ThemeMode.dark);
+                            } else{
+                              themeProvider.changeAppTheme(ThemeMode.light);
+                            }
+                          },
+                          child: SvgPicture.asset(
+                            AppAssets.sunIcn,
+                            height: 0.04.height,
+                          ),
                         ),
                         const SizedBox(
                           width: 10,
                         ),
                         CustomElevatedButton.text(
-                          text: "EN",
+                          text: languageProvider.appLanguage == "en" ? "EN" : "AR",
                           buttonColor: AppColors.white,
-                          textColor: AppColors.primaryColor,
-                          onPressed: () {},
+                          textColor: AppColors.primaryColorLight,
+                          onPressed: () {
+                            if(languageProvider.appLanguage == "en"){
+                              languageProvider.changeAppLanguage('ar');
+                            }else{
+                              languageProvider.changeAppLanguage('en');
+                            }
+
+                          },
                         ),
                       ],
                     ),
@@ -240,7 +261,7 @@ class _HomeTabState extends State<HomeTab> {
                   children: [
                     Text(AppLocalizations.of(context)!.somethingWentWrong,
                       style: TextStyle(
-                        color: AppColors.secondryColor,
+                        color: AppColors.secondryColorLight,
                         fontSize: 15,
                         fontWeight: FontWeight.w300,
                       ),
@@ -249,7 +270,7 @@ class _HomeTabState extends State<HomeTab> {
                     IconButton(
                       onPressed: (){},
                       icon: Icon(Icons.refresh_outlined,
-                        color: AppColors.secondryColor,
+                        color: AppColors.secondryColorLight,
                       ),
                     )
                   ],
@@ -258,7 +279,7 @@ class _HomeTabState extends State<HomeTab> {
 
               if(snapshot.connectionState == ConnectionState.waiting){
                 return  Center(child: CircularProgressIndicator(
-                  color: AppColors.primaryColor,
+                  color: AppColors.primaryColorLight,
                 ));
               }
 
@@ -283,7 +304,7 @@ class _HomeTabState extends State<HomeTab> {
                   : Center(
                 child: Text(AppLocalizations.of(context)!.noeventcreated ,
                   style: TextStyle(
-                    color: AppColors.secondryColor,
+                    color: AppColors.secondryColorLight,
                     fontSize: 20,
                     fontWeight: FontWeight.w400,
                   ),

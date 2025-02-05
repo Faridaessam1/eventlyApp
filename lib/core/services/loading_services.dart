@@ -11,7 +11,7 @@ void ConfigLoading() {
   ..indicatorSize = 45.0
   ..radius = 10.0
   ..backgroundColor = AppColors.white
-  ..indicatorColor = AppColors.primaryColor
+  ..indicatorColor = AppColors.primaryColorLight
   ..textColor = AppColors.white
   ..maskColor = Colors.black
   ..userInteractions = false

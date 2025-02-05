@@ -35,7 +35,7 @@ class _LayoutViewState extends State<LayoutView> {
             color: AppColors.white
           )
         ),
-        backgroundColor: AppColors.primaryColor,
+        backgroundColor: AppColors.primaryColorLight,
         onPressed: (){
           Navigator.pushNamed(context, PagesRouteName.createEvent);
         },
@@ -46,7 +46,7 @@ class _LayoutViewState extends State<LayoutView> {
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: AppColors.white ,
         unselectedItemColor: AppColors.white,
-        backgroundColor: AppColors.primaryColor,
+        backgroundColor: AppColors.primaryColorLight,
         type: BottomNavigationBarType.fixed,
         currentIndex: selectedIndex,
         onTap: onBottomNavBarItemTapped,
