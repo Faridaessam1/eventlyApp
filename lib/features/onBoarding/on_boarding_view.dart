@@ -34,7 +34,7 @@ class OnBoardingView extends StatelessWidget{
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 20,
-                      color: AppColors.primaryColorLight,
+                      color: AppColors.primaryColorLight ,
                     )
                     ),
                   SizedBox(height: 20,),
@@ -44,7 +44,7 @@ class OnBoardingView extends StatelessWidget{
                     style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 16,
-                            color: Colors.black,
+                            color: themeProvider.appTheme == ThemeMode.light ? Colors.black : Colors.white,
                           )
                       ),
                   SizedBox(height: 40,),
@@ -64,7 +64,7 @@ class OnBoardingView extends StatelessWidget{
             
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(50),
-                          color: AppColors.white,
+                          color: themeProvider.appTheme == ThemeMode.light ? AppColors.white : AppColors.primaryColorDark,
                           border: Border.all(
                             color: AppColors.primaryColorLight,
                             width: 2,
@@ -110,7 +110,7 @@ class OnBoardingView extends StatelessWidget{
             
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(50),
-                          color: AppColors.white,
+                          color: themeProvider.appTheme == ThemeMode.light ? AppColors.white : AppColors.primaryColorDark,
                           border: Border.all(
                             color: AppColors.primaryColorLight,
                             width: 2,

@@ -76,7 +76,7 @@ class _HomeTabState extends State<HomeTab> {
               padding: const EdgeInsets.all(16),
               height: MediaQuery.of(context).size.height * 0.27,
               decoration: BoxDecoration(
-                  color: AppColors.primaryColorLight,
+                  color: themeProvider.appTheme == ThemeMode.light ? AppColors.primaryColorLight : AppColors.primaryColorDark,
                   borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(50),
                     bottomRight: Radius.circular(50),
@@ -294,8 +294,13 @@ class _HomeTabState extends State<HomeTab> {
             return eventDataList.isNotEmpty ? Expanded(
                 child: ListView.separated(
                   padding: EdgeInsets.zero,
-                  itemBuilder: (context, index) =>  CustomEventCard(
-                    eventData: eventDataList[index],
+                  itemBuilder: (context, index) =>  GestureDetector(
+                    onTap: (){
+
+                    },
+                    child: CustomEventCard(
+                      eventData: eventDataList[index],
+                    ),
                   ),
                   separatorBuilder:(context, index) => SizedBox(height: MediaQuery.of(context).size.height * 0.01,) ,
                   itemCount:eventDataList.length,

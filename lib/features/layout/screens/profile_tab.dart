@@ -80,7 +80,8 @@ class _ProfileTabState extends State<ProfileTab> {
                     style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
-                        color: Colors.black),
+                        color:  themeProvider.appTheme == ThemeMode.light ? Colors.black : AppColors.white,
+                    ),
                   ),
                   SizedBox(
                     height: 20,
@@ -120,7 +121,8 @@ class _ProfileTabState extends State<ProfileTab> {
                     style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
-                        color: Colors.black),
+                        color: themeProvider.appTheme == ThemeMode.light ? Colors.black : AppColors.white,
+                    ),
                   ),
                   SizedBox(
                     height: 20,

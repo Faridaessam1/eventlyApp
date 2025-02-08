@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../core/constants/app_assets.dart';
 import '../../../core/routes/pages_route_name.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../models/on_boarding_data.dart';
+import '../../../provider/app_language_provider.dart';
+import '../../../provider/theme_mode_provider.dart';
 
 class CustomOnBoardingWidget extends StatefulWidget {
   PageController pageController;
@@ -24,6 +27,8 @@ class _CustomOnBoardingWidgetState extends State<CustomOnBoardingWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var languageProvider = Provider.of<AppLanguageProvider>(context);
+    var themeProvider = Provider.of<AppThemeProvider>(context);
     return SafeArea(
         child: Scaffold(
             body: Padding(
@@ -50,7 +55,7 @@ class _CustomOnBoardingWidgetState extends State<CustomOnBoardingWidget> {
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 16,
-                            color: Colors.black,
+                          color: themeProvider.appTheme == ThemeMode.light ? Colors.black : AppColors.white,
                           )
                       ),
                       Spacer(),

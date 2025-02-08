@@ -3,8 +3,10 @@ import 'package:evently_app/core/utils/firebase_firestore.dart';
 import 'package:evently_app/models/event_data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_assets.dart';
+import '../../../provider/theme_mode_provider.dart';
 
 class CustomEventCard extends StatelessWidget{
   EventDataModel eventData;
@@ -15,6 +17,8 @@ class CustomEventCard extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    var themeProvider = Provider.of<AppThemeProvider>(context);
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 18 , vertical: 9),
       child: Container(
@@ -36,13 +40,13 @@ class CustomEventCard extends StatelessWidget{
               child: Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                    color: AppColors.pastelCyan,
+                    color:themeProvider.appTheme == ThemeMode.light ? AppColors.pastelCyan : AppColors.primaryColorDark,
                     borderRadius: BorderRadius.circular(10)
                 ),
                 child: Text("${eventData.eventDate.day} \n ${DateFormat('MMM').format(eventData.eventDate)}",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: AppColors.primaryColorLight,
+                    color: themeProvider.appTheme == ThemeMode.light ? AppColors.primaryColorLight : AppColors.primaryColorLight,
                     fontFamily: "InterRegular",
                     fontSize: 16,
                     fontWeight: FontWeight.w700,
@@ -56,7 +60,7 @@ class CustomEventCard extends StatelessWidget{
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: AppColors.pastelCyan,
+                color:themeProvider.appTheme == ThemeMode.light ? AppColors.pastelCyan : AppColors.primaryColorDark,
                 borderRadius: BorderRadius.circular(10),
 
               ),
@@ -65,7 +69,7 @@ class CustomEventCard extends StatelessWidget{
                   Expanded(
                     child: Text(eventData.eventTitle,
                       style: TextStyle(
-                        color: AppColors.primaryColorLight,
+                        color: themeProvider.appTheme == ThemeMode.light ? AppColors.primaryColorLight : AppColors.white,
                         fontWeight: FontWeight.w700,
                         fontSize: 18,
                         fontFamily: "InterRegular",
