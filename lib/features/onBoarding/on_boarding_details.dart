@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../models/on_boarding_data.dart';
+import '../../provider/app_language_provider.dart';
+import '../../provider/theme_mode_provider.dart';
 import 'widgets/custom_on_boarding_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -9,10 +12,12 @@ class OnBoardingDetails extends StatefulWidget{
 }
 
 class _OnBoardingDetailsState extends State<OnBoardingDetails> {
+
   PageController _pageController = PageController();
   int currentPage =0;
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: PageView.builder(
         onPageChanged: (index) {

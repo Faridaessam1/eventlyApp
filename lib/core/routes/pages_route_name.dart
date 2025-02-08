@@ -8,6 +8,7 @@ abstract class PagesRouteName {
   static const forgetPassword = "forget_password_view";
   static const layoutView = "layout_view";
   static const createEvent = "create_event";
+  static const editEvent = "edit_event";
 
 
 }

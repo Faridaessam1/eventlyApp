@@ -6,6 +6,9 @@ import 'package:evently_app/features/layout/screens/maps_tab.dart';
 import 'package:evently_app/features/layout/screens/profile_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
+
+import '../../../provider/theme_mode_provider.dart';
 
 
 class LayoutView extends StatefulWidget {
@@ -26,6 +29,8 @@ class _LayoutViewState extends State<LayoutView> {
   ];
   @override
   Widget build(BuildContext context) {
+    var themeProvider = Provider.of<AppThemeProvider>(context);
+
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
@@ -35,7 +40,7 @@ class _LayoutViewState extends State<LayoutView> {
             color: AppColors.white
           )
         ),
-        backgroundColor: AppColors.primaryColorLight,
+        backgroundColor: themeProvider.appTheme == ThemeMode.light ? AppColors.primaryColorLight : AppColors.primaryColorDark,
         onPressed: (){
           Navigator.pushNamed(context, PagesRouteName.createEvent);
         },
@@ -46,7 +51,7 @@ class _LayoutViewState extends State<LayoutView> {
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: AppColors.white ,
         unselectedItemColor: AppColors.white,
-        backgroundColor: AppColors.primaryColorLight,
+        backgroundColor:  themeProvider.appTheme == ThemeMode.light ? AppColors.primaryColorLight : AppColors.primaryColorDark,
         type: BottomNavigationBarType.fixed,
         currentIndex: selectedIndex,
         onTap: onBottomNavBarItemTapped,

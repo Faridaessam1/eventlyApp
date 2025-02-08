@@ -23,6 +23,8 @@ abstract class AppAssets{
   static const String ENLanguageIcn = "assets/icons/ENLanguageIcon.png";
   static const String darkMoodIcn = "assets/icons/darkMoodIcon.png";
   static const String lightMoodIcn  = "assets/icons/lightMoodIcon.png";
+  static const String editIcn  = "assets/icons/editIcon.png";
+  static const String deleteIcn  = "assets/icons/deleteIcon.png";
   static const String eventlyCardBirthday = "assets/images/birthday.png";
   static const String eventlyCardMeeting = "assets/images/meeting.png";
   static const String eventlyCardExhibition = "assets/images/exhibition.png";
