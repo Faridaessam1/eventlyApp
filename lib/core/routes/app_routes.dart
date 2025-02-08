@@ -3,6 +3,7 @@ import 'package:evently_app/features/authentication/createAccount/screen/create_
 import 'package:evently_app/features/authentication/forgetPassword/screen/forget_password_view.dart';
 import 'package:evently_app/features/authentication/signIN/screen/sign_in_view.dart';
 import 'package:evently_app/features/createEvent/screen/create_event.dart';
+import 'package:evently_app/features/editEvent/edit_event_screen.dart';
 import 'package:evently_app/features/layout/screens/layout_view.dart';
 import 'package:evently_app/features/onBoarding/on_boarding_details.dart';
 import 'package:evently_app/features/splash/splash_view.dart';
@@ -53,6 +54,11 @@ abstract class AppRoutes{
       case PagesRouteName.createEvent:
         return MaterialPageRoute(
           builder: (context) => const CreateEvent(),
+          settings: settings,
+        );
+      case PagesRouteName.editEvent:
+        return MaterialPageRoute(
+          builder: (context) => EditEventScreen(),
           settings: settings,
         );
       default:

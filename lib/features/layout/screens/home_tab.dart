@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:evently_app/core/constants/app_assets.dart';
 import 'package:evently_app/core/extensions/size_ext.dart';
+import 'package:evently_app/core/routes/pages_route_name.dart';
 import 'package:evently_app/core/theme/app_colors.dart';
 import 'package:evently_app/core/widgets/custom_elevated_button.dart';
 import 'package:evently_app/features/layout/widgets/custom_event_card.dart';
@@ -296,8 +297,17 @@ class _HomeTabState extends State<HomeTab> {
                   padding: EdgeInsets.zero,
                   itemBuilder: (context, index) =>  GestureDetector(
                     onTap: (){
+                      Navigator.pushNamed(
+                              context, PagesRouteName.editEvent,
+                        arguments: {
+                          "eventData": eventDataList[index],
+                          "selectedIndex": index
+                        },
 
-                    },
+                      );
+
+
+                        },
                     child: CustomEventCard(
                       eventData: eventDataList[index],
                     ),
