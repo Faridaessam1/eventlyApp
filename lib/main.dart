@@ -1,6 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:evently_app/core/routes/app_routes.dart';
 import 'package:evently_app/core/services/loading_services.dart';
+import 'package:evently_app/core/services/local_storage_service.dart';
 import 'package:evently_app/provider/app_language_provider.dart';
 import 'package:evently_app/provider/theme_mode_provider.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +14,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
-void main() async {
+Future <void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await LocalStorageService.init();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

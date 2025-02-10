@@ -12,12 +12,12 @@ class FirebaseFunctions {
 
     try{
       UserCredential credential=
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-         email: email,
-         password: password,
-       );
-       SnackBarServices.showSuccessMessage("Account Created Successfully");
-       return Future.value(true);
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      SnackBarServices.showSuccessMessage("Account Created Successfully");
+      return Future.value(true);
     }
     on FirebaseAuthException catch(e){
       if (e.code == 'weak-password') {

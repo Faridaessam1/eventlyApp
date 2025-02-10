@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:evently_app/core/constants/app_assets.dart';
 import 'package:evently_app/core/routes/pages_route_name.dart';
+import 'package:evently_app/core/services/local_storage_keys.dart';
+import 'package:evently_app/core/services/local_storage_service.dart';
 import 'package:flutter/material.dart';
 
 
@@ -18,9 +20,11 @@ class _SplashViewState extends State<SplashView> {
     Timer(
       const Duration(seconds: 2),
       () {
+        var isFirstTime = LocalStorageService.getBool(LocalStorageKeys.isFirstTimeRun) ?? true;
+
         Navigator.pushNamedAndRemoveUntil(
-            context,
-            PagesRouteName.onBoarding,
+            context,  isFirstTime ?
+            PagesRouteName.onBoarding : PagesRouteName.signIN,
             (route) => false,
         );
       },
