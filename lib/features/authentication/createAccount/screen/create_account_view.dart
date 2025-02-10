@@ -48,11 +48,11 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                   height: MediaQuery.of(context).size.height * 0.25,
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.04,),
-            
-            
+
+
                 CustomTextFormField(
-                    iconPath: AppAssets.nameIcn,
-                    hintText:"Name",
+                  iconPath: AppAssets.nameIcn,
+                  hintText:"Name",
                   controller: _nameControler,
                   validator: (value){
                     if(value == null || value.trim().isEmpty ){
@@ -62,10 +62,10 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                   },
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02,),
-            
+
                 CustomTextFormField(
-                    iconPath: AppAssets.mailIcn,
-                    hintText:"Email",
+                  iconPath: AppAssets.mailIcn,
+                  hintText:"Email",
                   controller: _emailControler,
                   validator: (value){
                     if(value == null || value.trim().isEmpty ){
@@ -78,8 +78,8 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                   },
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02,),
-            
-            
+
+
                 CustomTextFormField(
                   iconPath: AppAssets.passwordIcn,
                   hintText: "Password",
@@ -96,8 +96,8 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                   },
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02,),
-            
-            
+
+
                 CustomTextFormField(
                   iconPath:AppAssets.passwordIcn,
                   hintText: "Re-Password" ,
@@ -113,15 +113,15 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                   },
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.06,),
-            
-            
+
+
                 CustomElevatedButton.text(
                   text: "Create Account",
                   buttonColor:AppColors.primaryColorLight,
                   textColor: AppColors.white,
                   onPressed: () {
                     if(formKey.currentState!.validate()){
-                     FirebaseFunctions.createAccount(
+                      FirebaseFunctions.createAccount(
                         _emailControler.text,
                         _passwordControler.text,
                       ).then((value){
@@ -129,13 +129,13 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                         if(value == true){
                           navigatorKey.currentState!.pop();
                         }
-                     }); // lw function createAccount de rg3t true yrg3 khatwa wara
+                      }); // lw function createAccount de rg3t true yrg3 khatwa wara
                     }
                   },
                 ),
-            
-            
-            
+
+
+
                 Text.rich(
                   TextSpan(
                     children: [
@@ -168,10 +168,10 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                   ),
                   textAlign: TextAlign.center,
                 ),
-            
-            
-            
-            
+
+
+
+
                 SizedBox(height: MediaQuery.of(context).size.height * 0.03,)
               ],
             ),

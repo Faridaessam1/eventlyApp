@@ -1,3 +1,5 @@
+import 'package:evently_app/core/services/local_storage_keys.dart';
+import 'package:evently_app/core/services/local_storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../models/on_boarding_data.dart';
@@ -15,6 +17,12 @@ class _OnBoardingDetailsState extends State<OnBoardingDetails> {
 
   PageController _pageController = PageController();
   int currentPage =0;
+
+  @override
+  void initState() {
+   LocalStorageService.setBool(LocalStorageKeys.isFirstTimeRun, false);
+  }
+
   @override
   Widget build(BuildContext context) {
 

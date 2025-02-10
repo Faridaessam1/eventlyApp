@@ -101,8 +101,8 @@ class _SignInViewState extends State<SignInView> {
                     onPressed:() {
                       if(formKey.currentState!.validate()){
                         FirebaseFunctions.login(
-                            _emailControler.text,
-                            _passwordControler.text,
+                          _emailControler.text,
+                          _passwordControler.text,
                         ).then((value){
                           EasyLoading.dismiss();
                           if(value == true){
