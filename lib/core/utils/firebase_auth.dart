@@ -16,7 +16,9 @@ class FirebaseFunctions {
         email: email,
         password: password,
       );
+      String userID = credential.user?.uid ?? "";
       SnackBarServices.showSuccessMessage("Account Created Successfully");
+
       return Future.value(true);
     }
     on FirebaseAuthException catch(e){
@@ -46,22 +48,29 @@ class FirebaseFunctions {
           email: email,
           password: password
       );
+      String userID = credential.user?.uid ?? "";
+
       SnackBarServices.showSuccessMessage("Logged In Successfully");
       return Future.value(true);
     }
     on FirebaseAuthException catch(e){
-      if (e.code == 'user-not-found') {
+      if (e.code == 'invalid-credential') {
         SnackBarServices.showErrorMessage(e.message ?? "User Is Not Found");
         return Future.value(false);
 
-      } else if (e.code == 'wrong-password') {
-        SnackBarServices.showErrorMessage(e.message ?? "Wrong password");
+      } else if (e.code == ' invalid-credential') {
+        SnackBarServices.showErrorMessage("Wrong password");
         return Future.value(false);
 
-      }
+      }else if (e.code == 'network-request-failed') {
+        SnackBarServices.showErrorMessage("Network error");
+        return Future.value(false);
+        }
       return Future.value(false);
 
-    } catch (e){
+    }
+     catch (e){
+      print(e.toString());
       return Future.value(false);
     }
 
