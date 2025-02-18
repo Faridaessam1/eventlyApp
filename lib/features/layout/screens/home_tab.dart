@@ -183,7 +183,8 @@ class _HomeTabState extends State<HomeTab> {
                                   isHomeTab:true,
                               ),
                             );
-                          }).toList(),                      ),
+                          }).toList(),
+                        ),
                       ),
                     ),
                   ],

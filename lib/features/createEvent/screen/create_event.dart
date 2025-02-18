@@ -13,6 +13,7 @@ import 'package:intl/intl.dart';
 
 import '../../../core/services/snack_bar_services.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../location_manager.dart';
 
 class CreateEvent extends StatefulWidget {
   const CreateEvent({super.key});
@@ -226,7 +227,9 @@ class _CreateEventState extends State<CreateEvent> {
                       ElevatedButton.icon(
                         style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.primaryColorLight),
-                        onPressed: () {},
+                        onPressed: () {
+                          LocationManager.getCurrentLocation();
+                        },
                         label: Icon(Icons.my_location_outlined,
                             color: AppColors.white),
                       ),
