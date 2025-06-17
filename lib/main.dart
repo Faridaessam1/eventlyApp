@@ -4,6 +4,7 @@ import 'package:evently_app/core/services/loading_services.dart';
 import 'package:evently_app/core/services/local_storage_service.dart';
 import 'package:evently_app/provider/app_language_provider.dart';
 import 'package:evently_app/provider/theme_mode_provider.dart';
+import 'package:evently_app/provider/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -27,7 +28,11 @@ Future <void> main() async {
     ),
     ChangeNotifierProvider(
       create: (context) => AppThemeProvider(),
+    ) ,
+    ChangeNotifierProvider(
+      create: (context) => UserProvider(),
     )
+
   ], child: const MyApp()));
 
   ConfigLoading();
