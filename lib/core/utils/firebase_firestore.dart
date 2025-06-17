@@ -1,73 +1,87 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:evently_app/models/event_data_model.dart';
 
 abstract class FireBaseFirestoreServices {
-// function 3shan tt3aml m3 firestore w trg3 esm el collection
+  // Get current user ID
+  static String? get currentUserId => FirebaseAuth.instance.currentUser?.uid;
+
+  // Function to get collection reference for current user
   static CollectionReference<EventDataModel> getCollectionRef() {
-    //singelton class bakhod mno object w a3del 3aleh
-    // b set esm el collection (table) ,
-    // w byrg3le el collection kolo bkol el docs el feh,
-    // do converter
+    if (currentUserId == null) {
+      throw Exception("User not authenticated");
+    }
+
+    // Create path: users/{userId}/events
     return FirebaseFirestore.instance
+        .collection('users')
+        .doc(currentUserId!)
         .collection(EventDataModel.collectionName)
         .withConverter<EventDataModel>(
-          //snapshot da el doc el gy mn firesotre(map<string , dynamic >) btakhdo w thawelo l object mn no3 eventDataModel
-          // from firestore 3ndha parameter map string w dynamic
-          // badeha el snapshot.data 3shan el parameter
-          fromFirestore: (snapshot, _) =>
-              EventDataModel.fromFirestore(snapshot.data()!),
-          toFirestore: (eventModel, _) => eventModel.toFireStore(),
-        ); // bstkhdmha 3shan a read w write data
+      fromFirestore: (snapshot, _) =>
+          EventDataModel.fromFirestore(snapshot.data()!),
+      toFirestore: (eventModel, _) => eventModel.toFireStore(),
+    );
   }
 
-  // function t create new event
+  // Function to create new event for current user
   static Future<bool> createNewEvent(EventDataModel eventData) async {
     try {
-      //awl haga a3mlha eni ageb el collection ref
-      var collectionRef = getCollectionRef();
+      if (currentUserId == null) {
+        throw Exception("User not authenticated");
+      }
 
-      var docRef = collectionRef.doc(); //create new doc in collection
+      var collectionRef = getCollectionRef();
+      var docRef = collectionRef.doc(); // Create new doc in collection
 
       eventData.eventID = docRef.id;
-      //b2olo yhotele el value bt3t el id fl object mn l id el hwa auto generated fe el firestore
+      // Add user ID to event data
+      eventData.userId = currentUserId!;
 
-      docRef.set(eventData);
-      //b2olo y create el data bl object el m3aia mn eventDataModel
-      // yroh yb3to l function to firestore w thawelo l map w tb3to
-      // mesh 7ata await hna 3shan ana msh mestnya data trg3 lw kan fe haga rg3a kan lazm await
-
-      return Future.value(true);
+      await docRef.set(eventData); // Use await here
+      return true;
     } catch (error) {
-      return Future.value(false);
+      print("Error creating event: $error");
+      return false;
     }
   }
 
-  //functions trg3 el data mn database (read data)
-  static Future <List<EventDataModel>> getDataFromFirestore(String categoryName) async {
-    var collectionRef = getCollectionRef().where(
-      "eventCategory" , isEqualTo: categoryName,
-    );
+  // Function to get data from firestore for current user
+  static Future<List<EventDataModel>> getDataFromFirestore(String categoryName) async {
+    try {
+      if (currentUserId == null) {
+        throw Exception("User not authenticated");
+      }
 
-    //3ayza arg3 data(docs) el fl collection
-    QuerySnapshot<EventDataModel> data = await collectionRef.get();
+      Query<EventDataModel> collectionRef = getCollectionRef();
 
-    // bs el data btrg3 b no3 mokhtlf shewia
-    //Future<QuerySnapshot<EventDataModel>>
-    // hn3mlha mapping 3shan n7wel no3ha w y loop 3ala el list of doc
+      if (categoryName != "All") {
+        collectionRef = collectionRef.where(
+          "eventCategory",
+          isEqualTo: categoryName,
+        );
+      }
 
-    // 3nde list of QuerySnapshot<EventDataModel> el hya f variabl el data
-    // 3yza a7welha ll model bta3e el trg3 be yeb2a mapping
-    List<EventDataModel> eventDataList = data.docs.map(
-          (element) {
-            return element.data();
-          },
-        )
-        .toList();
-    return eventDataList;
-// ana hna 3mlt el map gwa el function l2en k future l data btrg3 mra whda bs
-  // kol ma bndah el function btgeb data t7welha w trg3ha
+      QuerySnapshot<EventDataModel> data = await collectionRef.get();
+
+      List<EventDataModel> eventDataList = data.docs.map(
+            (element) => element.data(),
+      ).toList();
+
+      return eventDataList;
+    } catch (error) {
+      print("Error getting data: $error");
+      return [];
+    }
   }
-  static Stream<QuerySnapshot<EventDataModel>> getStreamData(String categoryName){
+
+  // Function to get stream data for current user
+  static Stream<QuerySnapshot<EventDataModel>> getStreamData(String categoryName) {
+    if (currentUserId == null) {
+      // Return empty stream if user not authenticated
+      return Stream.empty();
+    }
+
     Query<EventDataModel> collectionRef = getCollectionRef();
 
     if (categoryName != "All") {
@@ -76,68 +90,64 @@ abstract class FireBaseFirestoreServices {
         isEqualTo: categoryName,
       );
     }
-   
 
     return collectionRef.snapshots();
-    //bnrg3 el collection as stream
-    //once 7sal change aw update yrg3hole f wa2tha msh shart a3mle refresh
-
-    //fl stream bn3ml el map hnak fl stream builder
-    //l2en hwa bygeb l data 3la tol kol ma y7sal change
-    // msh hyro7 yndah el function 3shan ygeb data
-    //lazm el data tthawel mngher ma andh function
-
   }
 
-//function trg3 stream data llfavorite page
-  static Stream<QuerySnapshot<EventDataModel>> getStreamFavoriteData(){
+  // Function to get stream favorite data for current user
+  static Stream<QuerySnapshot<EventDataModel>> getStreamFavoriteData() {
+    if (currentUserId == null) {
+      return Stream.empty();
+    }
+
     var collectionRef = getCollectionRef().where(
-      "isFavorite", isEqualTo : true,
+      "isFavorite",
+      isEqualTo: true,
     );
 
-
-
     return collectionRef.snapshots();
-    //bnrg3 el collection as stream
-    //once 7sal change aw update yrg3hole f wa2tha msh shart a3mle refresh
-
-    //fl dtream bn3ml el map hnak fl stream builder
-    //l2en hwa bygeb l data 3la tol kol ma y7sal change
-    // msh hyro7 yndah el function 3shan ygeb data
-    //lazm el data tthawel mngher ma andh function
-
   }
 
-  static Future<bool> deleteEvent(EventDataModel data) async{
-    try{
-      var collectionRef = getCollectionRef();
+  // Function to delete event for current user
+  static Future<bool> deleteEvent(EventDataModel data) async {
+    try {
+      if (currentUserId == null) {
+        throw Exception("User not authenticated");
+      }
 
+      var collectionRef = getCollectionRef();
       var docRef = collectionRef.doc(data.eventID);
 
-      docRef.delete();
-      return Future.value(true);
-    } catch(error){
-      return Future.value(false);
-
+      await docRef.delete(); // Use await here
+      return true;
+    } catch (error) {
+      print("Error deleting event: $error");
+      return false;
     }
-
   }
-  static Future<bool> updateEvent(EventDataModel data) async{
-    try{
-      var collectionRef = getCollectionRef();
 
+  // Function to update event for current user
+  static Future<bool> updateEvent(EventDataModel data) async {
+    try {
+      if (currentUserId == null) {
+        throw Exception("User not authenticated");
+      }
+
+      var collectionRef = getCollectionRef();
       var docRef = collectionRef.doc(data.eventID);
 
-      docRef.update(
-        data.toFireStore(),
-      );
-      return Future.value(true);
-    } catch(error){
-      return Future.value(false);
-
+      await docRef.update(data.toFireStore()); // Use await here
+      return true;
+    } catch (error) {
+      print("Error updating event: $error");
+      return false;
     }
-
   }
 
-
+  static Future<DocumentSnapshot> getUserData(String userId) async {
+    return await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .get();
+  }
 }
