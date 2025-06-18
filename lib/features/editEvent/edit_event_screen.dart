@@ -59,31 +59,30 @@ class _EditEventScreenState extends State<EditEventScreen> {
   ];
 
   late EventDataModel eventData;
-   late int selectedIndex;
+  late int selectedIndex;
   late DateTime? selectedDate;
   final formKey = GlobalKey<FormState>();
 
   late TextEditingController _eventTitleController;
-   late TextEditingController _eventDescriptionController;
-   late TextEditingController _eventImageController;
+  late TextEditingController _eventDescriptionController;
+  late TextEditingController _eventImageController;
 
-   @override
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-// ana m7taga el context 3shan ast2bel el data
-// kan lazm a7othom fl build bs da hyba whesh llperformance
-// el function de btkhle fe zy context
+    // ana m7taga el context 3shan ast2bel el data
+    // kan lazm a7othom fl build bs da hyba whesh llperformance
+    // el function de btkhle fe zy context
 
-     final args = ModalRoute.of(context)!.settings.arguments as Map;
-     eventData = args["eventData"] as EventDataModel;
-     selectedIndex = args["selectedIndex"] as int;
-
+    final args = ModalRoute.of(context)!.settings.arguments as Map;
+    eventData = args["eventData"] as EventDataModel;
+    selectedIndex = args["selectedIndex"] as int;
 
     _eventTitleController = TextEditingController(text: eventData.eventTitle);
     _eventDescriptionController = TextEditingController(text: eventData.eventDescription);
-    _eventImageController =  TextEditingController(text: eventData.eventImage);
-     selectedDate = eventData.eventDate;
-   }
+    _eventImageController = TextEditingController(text: eventData.eventImage);
+    selectedDate = eventData.eventDate;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +91,7 @@ class _EditEventScreenState extends State<EditEventScreen> {
         centerTitle: true,
         title: Text("Edit Event",
           style: TextStyle(
-            color: AppColors.primaryColorLight
+              color: AppColors.primaryColorLight
           ),
         ),
         iconTheme: IconThemeData(
@@ -100,32 +99,23 @@ class _EditEventScreenState extends State<EditEventScreen> {
         ),
         actions: [
           GestureDetector(
-            onTap: (){
-              var data = EventDataModel(
-                eventID: eventData.eventID,
-                eventTitle: _eventTitleController.text,
-                eventDescription: _eventDescriptionController.text,
-                eventImage: eventCategory[selectedIndex].eventCategoryImg,
-                eventCategory: eventCategory[selectedIndex].categoryName,
-                eventDate: selectedDate ?? DateTime.now(),
-              );
-              EasyLoading.show();
-              FireBaseFirestoreServices.deleteEvent(data).then((value){
-                EasyLoading.dismiss();
-                if(value == true){
-                  SnackBarServices.showSuccessMessage("Event Deleted Successfully");
-                  Navigator.pushNamed(context, PagesRouteName.layoutView);
-                }else{
-                  SnackBarServices.showErrorMessage("Your Event Not Deleted ! Try Again");
-
-                }
-
-              });
-            },
+              onTap: (){
+                EasyLoading.show();
+                FireBaseFirestoreServices.deleteEvent(eventData).then((value){
+                  EasyLoading.dismiss();
+                  if(value == true){
+                    SnackBarServices.showSuccessMessage("Event Deleted Successfully");
+                    Navigator.pushNamed(context, PagesRouteName.layoutView);
+                  }else{
+                    SnackBarServices.showErrorMessage("Your Event Not Deleted ! Try Again");
+                  }
+                });
+              },
               child: Image.asset(
-            AppAssets.deleteIcn,
-            height: 30,
-          )),
+                AppAssets.deleteIcn,
+                height: 30,
+              )
+          ),
         ],
       ),
       body: Padding(
@@ -207,7 +197,6 @@ class _EditEventScreenState extends State<EditEventScreen> {
                 controller:_eventDescriptionController,
                 hintText: "Description",
                 hasIcon: false,
-
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
 
@@ -298,30 +287,27 @@ class _EditEventScreenState extends State<EditEventScreen> {
                       onPressed: () {
                         try{
                           if(formKey.currentState!.validate()){
-                              var data = EventDataModel(
-                                eventID: eventData.eventID,
-                                eventTitle: _eventTitleController.text,
-                                eventDescription: _eventDescriptionController.text,
-                                eventImage: eventCategory[selectedIndex].eventCategoryImg,
-                                eventCategory: eventCategory[selectedIndex].categoryName,
-                                eventDate: selectedDate ?? DateTime.now(),
-                              );
-                              EasyLoading.show();
-                              FireBaseFirestoreServices.updateEvent(data).then((value){
-                                EasyLoading.dismiss();
-                                if(value == true){
-                                  SnackBarServices.showSuccessMessage("Event Updated Successfully");
-                                  Navigator.pushNamed(context, PagesRouteName.layoutView);
-                                }else{
-                                  SnackBarServices.showErrorMessage("Your Event Not Updated ! Try Again");
+                            // Update the existing eventData object instead of creating new one
+                            // This preserves the userID and other important fields
+                            eventData.eventTitle = _eventTitleController.text;
+                            eventData.eventDescription = _eventDescriptionController.text;
+                            eventData.eventImage = eventCategory[selectedIndex].eventCategoryImg;
+                            eventData.eventCategory = eventCategory[selectedIndex].categoryName;
+                            eventData.eventDate = selectedDate ?? DateTime.now();
 
-                                }
+                            EasyLoading.show();
+                            FireBaseFirestoreServices.updateEvent(eventData).then((value){
+                              EasyLoading.dismiss();
+                              if(value == true){
+                                SnackBarServices.showSuccessMessage("Event Updated Successfully");
+                                Navigator.pushNamed(context, PagesRouteName.layoutView);
+                              }else{
+                                SnackBarServices.showErrorMessage("Your Event Not Updated ! Try Again");
                               }
-                              );
-                            }
+                            });
+                          }
                         } catch(e){
                           SnackBarServices.showErrorMessage("An Error Occurred! Try Again");
-
                         }
                       },
                     ),
@@ -332,9 +318,9 @@ class _EditEventScreenState extends State<EditEventScreen> {
           ),
         ),
       ),
-
-   );
+    );
   }
+
   void selectEventDate(BuildContext context) async {
     DateTime? newDate = await showDatePicker(
       context: context,
@@ -350,5 +336,4 @@ class _EditEventScreenState extends State<EditEventScreen> {
       });
     }
   }
-
 }

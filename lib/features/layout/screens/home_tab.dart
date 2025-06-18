@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart'; // إضافة Firebase Auth
 import 'package:evently_app/core/constants/app_assets.dart';
 import 'package:evently_app/core/extensions/size_ext.dart';
 import 'package:evently_app/core/routes/pages_route_name.dart';
@@ -23,7 +24,41 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab> {
   int SelectedIndex = 0;
+  String userName = "";
 
+  @override
+  void initState() {
+    super.initState();
+    _loadUserName(); // استدعاء دالة جلب اسم المستخدم
+  }
+
+  // دالة لجلب اسم المستخدم من Firestore
+  Future<void> _loadUserName() async {
+    try {
+      User? currentUser = FirebaseAuth.instance.currentUser;
+      print('Current User: ${currentUser?.uid}');
+
+      if (currentUser != null) {
+        DocumentSnapshot userDoc = await FireBaseFirestoreServices.getUserData(currentUser.uid);
+        print('User Doc exists: ${userDoc.exists}');
+
+        if (userDoc.exists) {
+          Map<String, dynamic> userData = userDoc.data() as Map<String, dynamic>;
+          setState(() {
+            userName = userData['name'];
+          });
+        } else {
+          setState(() {
+            userName = 'User Not Found';
+          });
+        }
+      }
+    } catch (e) {
+      setState(() {
+        userName = 'Error Loading';
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     var languageProvider = Provider.of<AppLanguageProvider>(context);
@@ -72,265 +107,197 @@ class _HomeTabState extends State<HomeTab> {
     ];
 
     return Column(
-        children: [
-          Container(
-              padding: const EdgeInsets.all(16),
-              height: MediaQuery.of(context).size.height * 0.27,
-              decoration: BoxDecoration(
-                  color: themeProvider.appTheme == ThemeMode.light ? AppColors.primaryColorLight : AppColors.primaryColorDark,
-                  borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(50),
-                    bottomRight: Radius.circular(50),
-                  )),
-              child: SafeArea(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Column(
-                          children: [
-                            Text(
-                              AppLocalizations.of(context)!.welcomeback,
-                              style: TextStyle(
-                                  fontFamily: "InterRegular",
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w400,
-                                  color: AppColors.white),
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              "Farida Essam",
-                              style: TextStyle(
-                                  fontFamily: "InterRegular",
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.w700,
-                                  color: AppColors.white),
-                            ),
-                          ],
-                        ),
-                        const Spacer(),
-                        GestureDetector(
-                          onTap: (){
-                            if(themeProvider.appTheme == ThemeMode.light){
-                              themeProvider.changeAppTheme(ThemeMode.dark);
-                            } else{
-                              themeProvider.changeAppTheme(ThemeMode.light);
-                            }
-                          },
-                          child: SvgPicture.asset(
-                            AppAssets.sunIcn,
-                            height: 0.04.height,
+      children: [
+        Container(
+            padding: const EdgeInsets.all(16),
+            height: MediaQuery.of(context).size.height * 0.27,
+            decoration: BoxDecoration(
+                color: themeProvider.appTheme == ThemeMode.light ? AppColors.primaryColorLight : AppColors.primaryColorDark,
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(50),
+                  bottomRight: Radius.circular(50),
+                )),
+            child: SafeArea(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start, // إضافة هذا للمحاذاة
+                        children: [
+                          Text(
+                            AppLocalizations.of(context)!.welcomeback,
+                            style: TextStyle(
+                                fontFamily: "InterRegular",
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.white),
                           ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        CustomElevatedButton.text(
-                          text: languageProvider.appLanguage == "en" ? "EN" : "AR",
-                          buttonColor: AppColors.white,
-                          textColor: AppColors.primaryColorLight,
-                          onPressed: () {
-                            if(languageProvider.appLanguage == "en"){
-                              languageProvider.changeAppLanguage('ar');
-                            }else{
-                              languageProvider.changeAppLanguage('en');
-                            }
-
-                          },
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.location_on_outlined,
-                          color: AppColors.white,
-                        ),
-                        Text(
-                          "Cairo , Egypt",
-                          style: TextStyle(
-                              fontFamily: "InterRegular",
-                              fontSize: 18,
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.white),
-                        ),
-                      ],
-                    ),
-                    Expanded(
-                      child: DefaultTabController(
-                        length: eventCategory.length,
-                        child: TabBar(
-                          onTap: (index){
-                            SelectedIndex = index;
-                            setState(() {});
-
-                          },
-                          isScrollable: true,
-                          tabAlignment: TabAlignment.start,
-                          dividerColor: Colors.transparent,
-                          indicatorColor: Colors.transparent,
-                          tabs: eventCategory.map((element) {
-                            return CustomTabBarItem(
-                              eventCategory: EventCategory(
-                                  categoryName: element.categoryName,
-                                  eventCategoryIcon: element.eventCategoryIcon,
-                                  eventCategoryImg: element.eventCategoryImg,
-                                  isSelected:  SelectedIndex == eventCategory.indexOf(element),
-                                  isHomeTab:true,
-                              ),
-                            );
-                          }).toList(),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            userName.isEmpty ? "Loading..." : userName, // استخدام المتغير بدل النص الثابت
+                            style: TextStyle(
+                                fontFamily: "InterRegular",
+                                fontSize: 24,
+                                fontWeight: FontWeight.w700,
+                                color: AppColors.white),
+                          ),
+                        ],
+                      ),
+                      const Spacer(),
+                      GestureDetector(
+                        onTap: (){
+                          if(themeProvider.appTheme == ThemeMode.light){
+                            themeProvider.changeAppTheme(ThemeMode.dark);
+                          } else{
+                            themeProvider.changeAppTheme(ThemeMode.light);
+                          }
+                        },
+                        child: SvgPicture.asset(
+                          AppAssets.sunIcn,
+                          height: 0.04.height,
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              )),
-
-          //One time read
-          // FutureBuilder(
-          //     future: FireBaseFirestoreServices.getDataFromFirestore(eventCategory[SelectedIndex].categoryName),
-          //     builder: (context, snapshot) {
-          //       if(snapshot.hasError){
-          //         return Column(
-          //           mainAxisAlignment: MainAxisAlignment.center,
-          //           crossAxisAlignment: CrossAxisAlignment.stretch,
-          //           children: [
-          //             Text("Something Went Wrong !",
-          //               style: TextStyle(
-          //                 color: AppColors.secondryColor,
-          //                 fontSize: 15,
-          //                 fontWeight: FontWeight.w300,
-          //               ),
-          //             ),
-          //             SizedBox(),
-          //             IconButton(
-          //                 onPressed: (){},
-          //                 icon: Icon(Icons.refresh_outlined,
-          //                   color: AppColors.secondryColor,
-          //                 ),
-          //             )
-          //           ],
-          //         );
-          //       }
-          //
-          //       if(snapshot.connectionState == ConnectionState.waiting){
-          //         return  Center(child: CircularProgressIndicator(
-          //           color: AppColors.primaryColor,
-          //         ));
-          //       }
-          //
-          //       List<EventDataModel> eventDataList = snapshot.data ?? [];
-          //
-          //       return eventDataList.isNotEmpty ? Expanded(
-          //         child: ListView.separated(
-          //           padding: EdgeInsets.zero,
-          //           itemBuilder: (context, index) =>  CustomEventCard(
-          //             eventData: eventDataList[index],
-          //           ),
-          //           separatorBuilder:(context, index) => SizedBox(height: MediaQuery.of(context).size.height * 0.01,) ,
-          //           itemCount:eventDataList.length,
-          //         ),
-          //       )
-          //       : Center(
-          //         child: Text("No Event Created Yet ! " ,
-          //           style: TextStyle(
-          //             color: AppColors.secondryColor,
-          //             fontSize: 20,
-          //             fontWeight: FontWeight.w400,
-          //           ),
-          //         ),
-          //       )
-          //       ;
-          //
-          //     },
-          // ),
-
-          //real time read
-
-
-          StreamBuilder <QuerySnapshot<EventDataModel>>(
-            stream:FireBaseFirestoreServices.getStreamData(eventCategory[SelectedIndex].categoryName),
-            builder: (context, snapshot) {
-              if(snapshot.hasError){
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(AppLocalizations.of(context)!.somethingWentWrong,
-                      style: TextStyle(
-                        color: AppColors.secondryColorLight,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w300,
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      CustomElevatedButton.text(
+                        text: languageProvider.appLanguage == "en" ? "EN" : "AR",
+                        buttonColor: AppColors.white,
+                        textColor: AppColors.primaryColorLight,
+                        onPressed: () {
+                          if(languageProvider.appLanguage == "en"){
+                            languageProvider.changeAppLanguage('ar');
+                          }else{
+                            languageProvider.changeAppLanguage('en');
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.location_on_outlined,
+                        color: AppColors.white,
+                      ),
+                      Text(
+                        "Cairo , Egypt",
+                        style: TextStyle(
+                            fontFamily: "InterRegular",
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                            color: AppColors.white),
+                      ),
+                    ],
+                  ),
+                  Expanded(
+                    child: DefaultTabController(
+                      length: eventCategory.length,
+                      child: TabBar(
+                        onTap: (index){
+                          SelectedIndex = index;
+                          setState(() {});
+                        },
+                        isScrollable: true,
+                        tabAlignment: TabAlignment.start,
+                        dividerColor: Colors.transparent,
+                        indicatorColor: Colors.transparent,
+                        tabs: eventCategory.map((element) {
+                          return CustomTabBarItem(
+                            eventCategory: EventCategory(
+                              categoryName: element.categoryName,
+                              eventCategoryIcon: element.eventCategoryIcon,
+                              eventCategoryImg: element.eventCategoryImg,
+                              isSelected:  SelectedIndex == eventCategory.indexOf(element),
+                              isHomeTab:true,
+                            ),
+                          );
+                        }).toList(),
                       ),
                     ),
-                    SizedBox(),
-                    IconButton(
-                      onPressed: (){},
-                      icon: Icon(Icons.refresh_outlined,
-                        color: AppColors.secondryColorLight,
-                      ),
-                    )
-                  ],
-                );
-              }
+                  ),
+                ],
+              ),
+            )),
 
-              if(snapshot.connectionState == ConnectionState.waiting){
-                return  Center(child: CircularProgressIndicator(
-                  color: AppColors.primaryColorLight,
-                ));
-              }
+        StreamBuilder <QuerySnapshot<EventDataModel>>(
+          stream:FireBaseFirestoreServices.getStreamData(eventCategory[SelectedIndex].categoryName),
+          builder: (context, snapshot) {
+            if(snapshot.hasError){
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(AppLocalizations.of(context)!.somethingWentWrong,
+                    style: TextStyle(
+                      color: AppColors.secondryColorLight,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w300,
+                    ),
+                  ),
+                  SizedBox(),
+                  IconButton(
+                    onPressed: (){},
+                    icon: Icon(Icons.refresh_outlined,
+                      color: AppColors.secondryColorLight,
+                    ),
+                  )
+                ],
+              );
+            }
 
-              List<EventDataModel> eventDataList = snapshot.data!.docs
+            if(snapshot.connectionState == ConnectionState.waiting){
+              return  Center(child: CircularProgressIndicator(
+                color: AppColors.primaryColorLight,
+              ));
+            }
+
+            List<EventDataModel> eventDataList = snapshot.data!.docs
                 .map(
                   (element) {
-                    return element.data();
-                  },
-                )
+                return element.data();
+              },
+            )
                 .toList();
 
             return eventDataList.isNotEmpty ? Expanded(
-                child: ListView.separated(
-                  padding: EdgeInsets.zero,
-                  itemBuilder: (context, index) =>  GestureDetector(
-                    onTap: (){
-                      Navigator.pushNamed(
-                              context, PagesRouteName.editEvent,
-                        arguments: {
-                          "eventData": eventDataList[index],
-                          "selectedIndex": index
-                        },
-
-                      );
-
-
-                        },
-                    child: CustomEventCard(
-                      eventData: eventDataList[index],
-                    ),
-                  ),
-                  separatorBuilder:(context, index) => SizedBox(height: MediaQuery.of(context).size.height * 0.01,) ,
-                  itemCount:eventDataList.length,
-                ),
-              )
-                  : Center(
-                child: Text(AppLocalizations.of(context)!.noeventcreated ,
-                  style: TextStyle(
-                    color: AppColors.secondryColorLight,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w400,
+              child: ListView.separated(
+                padding: EdgeInsets.zero,
+                itemBuilder: (context, index) =>  GestureDetector(
+                  onTap: (){
+                    Navigator.pushNamed(
+                      context, PagesRouteName.editEvent,
+                      arguments: {
+                        "eventData": eventDataList[index],
+                        "selectedIndex": index
+                      },
+                    );
+                  },
+                  child: CustomEventCard(
+                    eventData: eventDataList[index],
                   ),
                 ),
-              )
-              ;
-
-            },
-          ),
-        ],
-      );
+                separatorBuilder:(context, index) => SizedBox(height: MediaQuery.of(context).size.height * 0.01,) ,
+                itemCount:eventDataList.length,
+              ),
+            )
+                : Center(
+              child: Text(AppLocalizations.of(context)!.noeventcreated ,
+                style: TextStyle(
+                  color: AppColors.secondryColorLight,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            );
+          },
+        ),
+      ],
+    );
   }
 }

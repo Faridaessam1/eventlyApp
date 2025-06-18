@@ -49,7 +49,6 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.04,),
 
-
                 CustomTextFormField(
                   iconPath: AppAssets.nameIcn,
                   hintText:"Name",
@@ -79,7 +78,6 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02,),
 
-
                 CustomTextFormField(
                   iconPath: AppAssets.passwordIcn,
                   hintText: "Password",
@@ -97,7 +95,6 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02,),
 
-
                 CustomTextFormField(
                   iconPath:AppAssets.passwordIcn,
                   hintText: "Re-Password" ,
@@ -114,7 +111,6 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.06,),
 
-
                 CustomElevatedButton.text(
                   text: "Create Account",
                   buttonColor:AppColors.primaryColorLight,
@@ -124,17 +120,16 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                       FirebaseFunctions.createAccount(
                         _emailControler.text,
                         _passwordControler.text,
+                        _nameControler.text, // إضافة الاسم هنا
                       ).then((value){
                         EasyLoading.dismiss();
                         if(value == true){
                           navigatorKey.currentState!.pop();
                         }
-                      }); // lw function createAccount de rg3t true yrg3 khatwa wara
+                      });
                     }
                   },
                 ),
-
-
 
                 Text.rich(
                   TextSpan(
@@ -168,9 +163,6 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                   ),
                   textAlign: TextAlign.center,
                 ),
-
-
-
 
                 SizedBox(height: MediaQuery.of(context).size.height * 0.03,)
               ],

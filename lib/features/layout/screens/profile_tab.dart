@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../provider/app_language_provider.dart';
 import '../../../provider/theme_mode_provider.dart';
+import '../../../provider/user_provider.dart';
 
 class ProfileTab extends StatefulWidget {
   const ProfileTab({super.key});
@@ -17,12 +18,23 @@ class ProfileTab extends StatefulWidget {
 }
 
 class _ProfileTabState extends State<ProfileTab> {
-  String? selectedValue;
+  String? selectedLanguage;
+  String? selectedTheme;
+
+  @override
+  void initState() {
+    super.initState();
+    // Load user data when widget initializes
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<UserProvider>(context, listen: false).loadCurrentUser();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     var languageProvider = Provider.of<AppLanguageProvider>(context);
     var themeProvider = Provider.of<AppThemeProvider>(context);
+    var userProvider = Provider.of<UserProvider>(context);
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -43,51 +55,54 @@ class _ProfileTabState extends State<ProfileTab> {
                     AppAssets.profileImage,
                     height: MediaQuery.of(context).size.height * 0.2,
                   ),
-                  Column(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          "John Safwat",
+                  const SizedBox(width: 16), // Add spacing between image and text
+                  Expanded( // Wrap the Column with Expanded to prevent overflow
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center, // Center the content vertically
+                      crossAxisAlignment: CrossAxisAlignment.start, // Align text to start
+                      children: [
+                        Text(
+                          userProvider.currentUser?.name ?? "Loading...",
                           style: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.w700,
                               color: AppColors.white),
                         ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          "johnsafwat.route@gmail.com",
+                        const SizedBox(height: 8), // Add spacing between name and email
+                        Text(
+                          userProvider.currentUser?.email ?? "Loading...",
                           style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
                               color: AppColors.white),
                           softWrap: true,
-                          overflow: TextOverflow.visible,
+                          overflow: TextOverflow.ellipsis, // Handle long text properly
+                          maxLines: 2, // Allow maximum 2 lines
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   )
                 ],
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     AppLocalizations.of(context)!.language,
                     style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color:  themeProvider.appTheme == ThemeMode.light ? Colors.black : AppColors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: themeProvider.appTheme == ThemeMode.light
+                          ? Colors.black
+                          : AppColors.white,
                     ),
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  const SizedBox(height: 20),
                   Container(
-                    padding: EdgeInsets.symmetric(vertical: 8),
+                    padding: const EdgeInsets.symmetric(vertical: 8),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(
@@ -107,28 +122,26 @@ class _ProfileTabState extends State<ProfileTab> {
                         }
 
                         setState(() {
-                          selectedValue = newValue;
+                          selectedLanguage = newValue;
                         });
                       },
-                      value: selectedValue,
+                      value: selectedLanguage,
                     ),
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  const SizedBox(height: 20),
                   Text(
                     AppLocalizations.of(context)!.theme,
                     style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: themeProvider.appTheme == ThemeMode.light ? Colors.black : AppColors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: themeProvider.appTheme == ThemeMode.light
+                          ? Colors.black
+                          : AppColors.white,
                     ),
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  const SizedBox(height: 20),
                   Container(
-                    padding: EdgeInsets.symmetric(vertical: 8),
+                    padding: const EdgeInsets.symmetric(vertical: 8),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(
@@ -148,9 +161,10 @@ class _ProfileTabState extends State<ProfileTab> {
                         }
 
                         setState(() {
-                          selectedValue = newValue;
+                          selectedTheme = newValue;
                         });
                       },
+                      value: selectedTheme,
                     ),
                   ),
                 ],
